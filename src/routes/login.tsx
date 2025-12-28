@@ -1,28 +1,34 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { FeaturesSection } from "@/components/organisms/FeaturesSection";
+import { LoginFooter } from "@/components/organisms/LoginFooter";
+import { LoginForm } from "@/components/organisms/LoginForm";
+import { Logo } from "@/components/atoms/Logo";
+import { TestimonialCard } from "@/components/molecules/TestimonialCard";
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute("/login")({
     component: Login,
-})
+});
 
 function Login() {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-8 rounded shadow-md w-full max-w-sm">
-                <h1 className="text-2xl font-bold mb-6 text-center text-gray-800">Sign In</h1>
-                <form className="flex flex-col gap-4">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" className="mt-1 block w-full border border-gray-300 rounded p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="you@example.com" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700">Password</label>
-                        <input type="password" className="mt-1 block w-full border border-gray-300 rounded p-2 focus:ring-blue-500 focus:border-blue-500" placeholder="••••••••" />
-                    </div>
-                    <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition-colors">
-                        Sign In
-                    </button>
-                </form>
+        <div
+            id="login-container"
+            className="min-h-screen flex items-center justify-center bg-deep-focus bg-pattern px-4 py-8"
+        >
+            <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
+                <div className="flex justify-center">
+                    <Logo />
+                </div>
+                <LoginForm />
+                <FeaturesSection />
+                <TestimonialCard
+                    avatarUrl="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                    name="Marcus Chen"
+                    role="Powerlifter"
+                    quote="Gravl transformed my training. The analytics are incredible and the streak system keeps me motivated every single day!"
+                />
+                <LoginFooter />
             </div>
         </div>
-    )
+    );
 }
