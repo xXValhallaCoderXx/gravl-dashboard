@@ -1,0 +1,311 @@
+<html>
+
+  <head>
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      window.FontAwesomeConfig = {
+        autoReplaceSvg: 'nest'
+      };
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet">
+    <style>
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      body
+      {
+        font-family: 'Inter', sans-serif;
+        background: #09090b;
+      }
+
+      .glow-volt
+      {
+        box-shadow: 0 0 20px rgba(190, 242, 2, 0.3);
+      }
+
+      .gradient-volt
+      {
+        background: linear-gradient(135deg, #bef202 0%, #9ed700 100%);
+      }
+
+      .text-volt
+      {
+        color: #bef202;
+      }
+
+      .border-volt
+      {
+        border-color: #bef202;
+      }
+
+      .bg-pattern
+      {
+        background-image: radial-gradient(circle at 20% 50%, rgba(190, 242, 2, 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(190, 242, 2, 0.05) 0%, transparent 50%);
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        theme:
+        {
+          extend:
+          {
+            colors:
+            {
+              'deep-focus': '#09090b',
+              'volt': '#bef202',
+              'slate-custom': '#3f3f46',
+              'card-bg': '#18181b',
+            }
+          }
+        }
+      }
+    </script>
+    <style data-grapesjs-styles="true">
+      *
+      {
+        box-sizing: border-box;
+      }
+
+      body
+      {
+        margin: 0;
+      }
+
+      ::-webkit-scrollbar
+      {
+        display: none;
+      }
+
+      body
+      {
+        font-family: Inter, sans-serif;
+        background-image: initial;
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-repeat: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: rgb(9, 9, 11);
+      }
+
+      .glow-volt
+      {
+        box-shadow: rgba(190, 242, 2, 0.3) 0px 0px 20px;
+      }
+
+      .gradient-volt
+      {
+        background-image: linear-gradient(135deg, rgb(190, 242, 2) 0%, rgb(158, 215, 0) 100%);
+        background-position-x: initial;
+        background-position-y: initial;
+        background-size: initial;
+        background-repeat: initial;
+        background-attachment: initial;
+        background-origin: initial;
+        background-clip: initial;
+        background-color: initial;
+      }
+
+      .text-volt
+      {
+        color: rgb(190, 242, 2);
+      }
+
+      .border-volt
+      {
+        border-top-color: rgb(190, 242, 2);
+        border-right-color: rgb(190, 242, 2);
+        border-bottom-color: rgb(190, 242, 2);
+        border-left-color: rgb(190, 242, 2);
+      }
+
+      .bg-pattern
+      {
+        background-image: radial-gradient(circle at 20% 50%, rgba(190, 242, 2, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(190, 242, 2, 0.05) 0%, transparent 50%);
+      }
+    </style>
+  </head>
+
+  <body class="bg-deep-focus text-white">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+      rel="stylesheet">
+    <div id="login-container"
+      class="min-h-screen flex items-center justify-center bg-pattern px-4">
+      <div class="w-full max-w-md">
+        <div id="login-card"
+          class="bg-card-bg rounded-3xl p-8 border border-slate-custom">
+          <div class="text-center mb-8">
+            <div class="flex justify-center mb-6">
+              <div
+                class="w-20 h-20 rounded-2xl gradient-volt flex items-center justify-center glow-volt">
+                <i class="fa-solid fa-dumbbell text-deep-focus text-3xl"></i>
+              </div>
+            </div>
+            <h1 class="text-3xl font-black uppercase tracking-tight mb-2">
+              WELCOME TO <span class="text-volt">GRAVL</span></h1>
+            <p class="text-slate-custom text-sm">Sign in to track your fitness
+              journey</p>
+          </div>
+          <div id="login-form" class="space-y-4">
+            <div><label for="email"
+                class="block text-xs font-bold uppercase tracking-wide text-slate-custom mb-2">Email
+                Address</label>
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                  <i class="fa-solid fa-envelope text-slate-custom text-sm"></i>
+                </div><input type="email" id="email"
+                  placeholder="your.email@example.com"
+                  class="w-full bg-zinc-900 border border-slate-custom rounded-xl px-12 py-3 text-white text-sm focus:outline-none focus:border-volt transition-all">
+              </div>
+            </div>
+            <div><label for="password"
+                class="block text-xs font-bold uppercase tracking-wide text-slate-custom mb-2">Password</label>
+              <div class="relative">
+                <div
+                  class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                  <i class="fa-solid fa-lock text-slate-custom text-sm"></i>
+                </div><input type="password" id="password"
+                  placeholder="Enter your password"
+                  class="w-full bg-zinc-900 border border-slate-custom rounded-xl px-12 py-3 text-white text-sm focus:outline-none focus:border-volt transition-all"><button
+                  type="button"
+                  class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-custom hover:text-volt transition-colors"><i
+                    class="fa-solid fa-eye text-sm"></i></button>
+              </div>
+            </div>
+            <div class="flex items-center justify-between text-xs"><label
+                class="flex items-center space-x-2 cursor-pointer"><input
+                  type="checkbox"
+                  class="w-4 h-4 rounded border-slate-custom bg-zinc-900 text-volt focus:ring-volt focus:ring-offset-0"><span
+                  class="text-slate-custom">Remember me</span></label><a
+                href="#" class="text-volt font-bold hover:underline">Forgot
+                Password?</a></div><button type="submit"
+              class="w-full py-3 rounded-xl gradient-volt text-deep-focus font-black text-sm uppercase tracking-wide glow-volt hover:opacity-90 transition-all">
+              Sign In
+            </button>
+            <div class="relative my-6">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-slate-custom"></div>
+              </div>
+              <div class="relative flex justify-center text-xs"><span
+                  class="px-4 bg-card-bg text-slate-custom uppercase font-bold">Or
+                  continue with</span></div>
+            </div><button type="button"
+              class="w-full py-3 rounded-xl bg-zinc-900 border border-slate-custom text-white font-bold text-sm hover:bg-zinc-800 hover:border-volt transition-all flex items-center justify-center space-x-3"><svg
+                viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4"></path>
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853"></path>
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05"></path>
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335"></path>
+              </svg><span>Continue with Google</span></button><button
+              type="button"
+              class="w-full py-3 rounded-xl bg-zinc-900 border border-slate-custom text-white font-bold text-sm hover:bg-zinc-800 hover:border-volt transition-all flex items-center justify-center space-x-3"><i
+                class="fa-brands fa-apple text-xl"></i><span>Continue with
+                Apple</span></button>
+          </div>
+          <div class="mt-8 text-center">
+            <p class="text-xs text-slate-custom">
+              Don't have an account?
+              <a href="#" class="text-volt font-bold hover:underline">Create
+                Account</a>
+            </p>
+          </div>
+        </div>
+        <div id="features-section" class="mt-8 grid grid-cols-3 gap-4">
+          <div
+            class="text-center p-4 bg-card-bg rounded-xl border border-slate-custom">
+            <div
+              class="w-10 h-10 rounded-lg gradient-volt flex items-center justify-center glow-volt mx-auto mb-2">
+              <i class="fa-solid fa-chart-line text-deep-focus text-lg"></i>
+            </div>
+            <p class="text-xs font-bold text-white">Track Progress</p>
+          </div>
+          <div
+            class="text-center p-4 bg-card-bg rounded-xl border border-slate-custom">
+            <div
+              class="w-10 h-10 rounded-lg gradient-volt flex items-center justify-center glow-volt mx-auto mb-2">
+              <i class="fa-solid fa-fire text-deep-focus text-lg"></i></div>
+            <p class="text-xs font-bold text-white">Build Streaks</p>
+          </div>
+          <div
+            class="text-center p-4 bg-card-bg rounded-xl border border-slate-custom">
+            <div
+              class="w-10 h-10 rounded-lg gradient-volt flex items-center justify-center glow-volt mx-auto mb-2">
+              <i class="fa-solid fa-trophy text-deep-focus text-lg"></i></div>
+            <p class="text-xs font-bold text-white">Earn Rewards</p>
+          </div>
+        </div>
+        <div id="testimonial-section"
+          class="mt-6 bg-card-bg rounded-2xl p-6 border border-slate-custom">
+          <div class="flex items-start space-x-4">
+            <div
+              class="w-12 h-12 rounded-full overflow-hidden border-2 border-volt flex-shrink-0">
+              <img
+                src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
+                alt="User" class="w-full h-full object-cover"></div>
+            <div>
+              <div class="flex items-center space-x-1 mb-2"><i
+                  class="fa-solid fa-star text-volt text-xs"></i><i
+                  class="fa-solid fa-star text-volt text-xs"></i><i
+                  class="fa-solid fa-star text-volt text-xs"></i><i
+                  class="fa-solid fa-star text-volt text-xs"></i><i
+                  class="fa-solid fa-star text-volt text-xs"></i></div>
+              <p class="text-xs text-white mb-2">"Gravl transformed my training.
+                The analytics are incredible and the streak system keeps me
+                motivated every single day!"</p>
+              <div class="text-xs"><span class="font-bold text-white">Marcus
+                  Chen</span><span class="text-slate-custom"> •
+                  Powerlifter</span></div>
+            </div>
+          </div>
+        </div>
+        <footer id="login-footer" class="mt-8 text-center">
+          <div
+            class="flex items-center justify-center space-x-6 text-xs text-slate-custom mb-4">
+            <a href="#" class="hover:text-volt transition-colors">Privacy
+              Policy</a><span>•</span><a href="#"
+              class="hover:text-volt transition-colors">Terms of
+              Service</a><span>•</span><a href="#"
+              class="hover:text-volt transition-colors">Support</a></div>
+          <p class="text-xs text-slate-custom">© 2024 Gravl. All rights
+            reserved.</p>
+        </footer>
+      </div>
+    </div>
+  </body>
+
+</html>

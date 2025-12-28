@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <script>window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar { display: none; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #09090b;
+        }
+        .glow-volt {
+            box-shadow: 0 0 20px rgba(190, 242, 2, 0.3);
+        }
+        .gradient-volt {
+            background: linear-gradient(135deg, #bef202 0%, #9ed700 100%);
+        }
+        .text-volt {
+            color: #bef202;
+        }
+        .border-volt {
+            border-color: #bef202;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-focus': '#09090b',
+                        'volt': '#bef202',
+                        'slate-custom': '#3f3f46',
+                        'card-bg': '#18181b',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-deep-focus text-white">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="w-20 bg-card-bg border-r border-slate-custom flex flex-col items-center py-6 flex-shrink-0">
+            <div class="mb-12">
+                <div class="w-12 h-12 rounded-2xl gradient-volt flex items-center justify-center glow-volt">
+                    <i class="fa-solid fa-dumbbell text-deep-focus text-xl"></i>
+                </div>
+            </div>
+            <nav class="flex-1 flex flex-col items-center space-y-6">
+                <button class="w-12 h-12 rounded-xl bg-zinc-800 text-volt flex items-center justify-center hover:bg-zinc-700 transition-all">
+                    <i class="fa-solid fa-chart-line text-xl"></i>
+                </button>
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-fire text-xl"></i>
+                </button>
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-calendar-days text-xl"></i>
+                </button>
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-trophy text-xl"></i>
+                </button>
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-heart-pulse text-xl"></i>
+                </button>
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-user-group text-xl"></i>
+                </button>
+            </nav>
+            <div class="mt-auto space-y-4">
+                <button class="w-12 h-12 rounded-xl text-slate-custom flex items-center justify-center hover:bg-zinc-800 transition-all">
+                    <i class="fa-solid fa-gear text-xl"></i>
+                </button>
+                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-volt">
+                    <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="User" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Header - Fixed height, no overlap -->
+            <header id="header" class="bg-card-bg border-b border-slate-custom px-8 h-16 flex items-center justify-between sticky top-0 z-10">
+                <div class="flex items-center space-x-6">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                            <i class="fa-solid fa-dumbbell text-deep-focus text-sm"></i>
+                        </div>
+                        <span class="font-bold text-lg">GRAVL</span>
+                    </div>
+                    <div class="flex items-center space-x-2 bg-zinc-900 rounded-lg px-3 py-1.5">
+                        <i class="fa-solid fa-fire text-volt text-lg glow-volt"></i>
+                        <span class="text-volt font-black text-base">12 Day Streak</span>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-5 text-xs font-medium text-slate-custom">
+                    <div>53 Total Workouts</div>
+                    <div class="w-px h-4 bg-slate-custom"></div>
+                    <div>36h Trained</div>
+                    <div class="w-px h-4 bg-slate-custom"></div>
+                    <div>335k Vol</div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-all">
+                        <i class="fa-solid fa-bell text-slate-custom text-sm"></i>
+                    </button>
+                    <div class="w-8 h-8 rounded-full overflow-hidden border-2 border-volt">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="User" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Action Zone - Proper spacing -->
+            <section id="action-zone" class="px-8 pt-6 pb-6">
+                <div class="grid grid-cols-5 gap-5">
+                    <!-- Next Workout Card -->
+                    <div class="col-span-3 bg-card-bg rounded-2xl p-6 border border-slate-custom flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div>
+                                    <div class="text-xs font-bold text-volt uppercase tracking-wide mb-1">NEXT UP</div>
+                                    <h2 class="text-2xl font-black mb-1">Pull Day A</h2>
+                                    <p class="text-slate-custom text-xs">Back & Biceps • Last performed 4 days ago</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xs font-bold text-slate-custom uppercase mb-1">Target Duration</div>
+                                    <div class="text-xl font-black text-white">60m</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 mt-4">
+                                <div class="flex items-center space-x-1.5 text-xs">
+                                    <i class="fa-solid fa-dumbbell text-volt"></i>
+                                    <span class="text-slate-custom">8 Exercises</span>
+                                </div>
+                                <div class="flex items-center space-x-1.5 text-xs">
+                                    <i class="fa-solid fa-layer-group text-volt"></i>
+                                    <span class="text-slate-custom">24 Sets</span>
+                                </div>
+                                <div class="flex items-center space-x-1.5 text-xs">
+                                    <i class="fa-solid fa-gauge-high text-volt"></i>
+                                    <span class="text-slate-custom">High Intensity</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 mt-4">
+                            <button class="flex-1 px-5 py-2.5 rounded-xl border-2 border-volt text-volt font-bold text-sm hover:bg-volt hover:bg-opacity-10 transition-all">
+                                PREVIEW WORKOUT
+                            </button>
+                            <button class="flex-1 px-5 py-2.5 rounded-xl gradient-volt text-deep-focus font-black text-sm glow-volt hover:opacity-90 transition-all">
+                                START NOW
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Recovery Status Card -->
+                    <div class="col-span-2 bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                        <div class="mb-3">
+                            <h3 class="text-base font-bold uppercase tracking-wide">RECOVERY STATUS</h3>
+                            <p class="text-xs text-slate-custom mt-0.5">Muscle readiness assessment</p>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i class="fa-solid fa-check text-deep-focus text-xs font-bold"></i>
+                                    </div>
+                                    <div class="font-bold text-xs">BACK</div>
+                                </div>
+                                <div class="text-volt font-black text-base">100%</div>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i class="fa-solid fa-check text-deep-focus text-xs font-bold"></i>
+                                    </div>
+                                    <div class="font-bold text-xs">BICEPS</div>
+                                </div>
+                                <div class="text-volt font-black text-base">95%</div>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-red-500 bg-opacity-20 flex items-center justify-center">
+                                        <i class="fa-solid fa-exclamation text-red-500 text-xs"></i>
+                                    </div>
+                                    <div class="font-bold text-xs">CHEST</div>
+                                </div>
+                                <div class="text-red-500 font-black text-base">42%</div>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-lg bg-zinc-900">
+                                <div class="flex items-center space-x-2.5">
+                                    <div class="w-7 h-7 rounded-lg bg-yellow-500 bg-opacity-20 flex items-center justify-center">
+                                        <i class="fa-solid fa-clock text-yellow-500 text-xs"></i>
+                                    </div>
+                                    <div class="font-bold text-xs">TRICEPS</div>
+                                </div>
+                                <div class="text-yellow-500 font-black text-base">68%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Zone - Proper spacing -->
+            <section id="analysis-zone" class="px-8 pb-6">
+                <div class="grid grid-cols-5 gap-5">
+                    <!-- Muscle Focus Chart -->
+                    <div class="col-span-3 bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 class="text-base font-bold uppercase tracking-wide">MUSCLE FOCUS</h3>
+                                <p class="text-xs text-slate-custom mt-0.5">Training distribution balance</p>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="px-3 py-1.5 rounded-lg bg-volt text-deep-focus text-xs font-bold">Last 30 Days</button>
+                                <button class="px-3 py-1.5 rounded-lg bg-zinc-900 text-xs font-medium hover:bg-zinc-800 transition-all">3 Months</button>
+                            </div>
+                        </div>
+                        <div id="muscle-focus-chart" style="height: 240px"></div>
+                    </div>
+                    
+                    <!-- Personal Records -->
+                    <div class="col-span-2 bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                        <div class="mb-4">
+                            <h3 class="text-base font-bold uppercase tracking-wide">PERSONAL RECORDS</h3>
+                            <p class="text-xs text-slate-custom mt-0.5">Top compound lifts</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-volt">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i class="fa-solid fa-weight-hanging text-deep-focus text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-xs text-slate-custom">DEADLIFT</div>
+                                        <div class="text-xs text-slate-custom">Dec 15, 2024</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-volt font-black text-2xl">180</div>
+                                    <div class="text-xs text-slate-custom">KG</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center">
+                                        <i class="fa-solid fa-dumbbell text-volt text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-xs text-slate-custom">SQUAT</div>
+                                        <div class="text-xs text-slate-custom">Dec 10, 2024</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-black text-2xl">160</div>
+                                    <div class="text-xs text-slate-custom">KG</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 rounded-lg bg-zinc-800 flex items-center justify-center">
+                                        <i class="fa-solid fa-hand-fist text-volt text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-xs text-slate-custom">BENCH PRESS</div>
+                                        <div class="text-xs text-slate-custom">Dec 8, 2024</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-black text-2xl">120</div>
+                                    <div class="text-xs text-slate-custom">KG</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- History & Rewards Zone -->
+            <section id="history-rewards-zone" class="px-8 pb-6">
+                <div class="grid grid-cols-4 gap-5">
+                    <div class="col-span-3 bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                        <h3 class="text-base font-bold uppercase tracking-wide mb-4">RECENT HISTORY</h3>
+                        <div class="space-y-2.5">
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="text-center">
+                                        <div class="text-xl font-black text-white">22</div>
+                                        <div class="text-xs text-slate-custom">DEC</div>
+                                    </div>
+                                    <div class="w-px h-10 bg-slate-custom"></div>
+                                    <div>
+                                        <div class="font-bold text-sm">Push Day - Upper Body Power</div>
+                                        <div class="text-xs text-slate-custom mt-0.5">6:45 AM • 1h 23m</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-black text-white">87.4K</div>
+                                    <div class="text-xs text-slate-custom">Volume Load</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="text-center">
+                                        <div class="text-xl font-black text-white">21</div>
+                                        <div class="text-xs text-slate-custom">DEC</div>
+                                    </div>
+                                    <div class="w-px h-10 bg-slate-custom"></div>
+                                    <div>
+                                        <div class="font-bold text-sm">Leg Day - Hypertrophy Focus</div>
+                                        <div class="text-xs text-slate-custom mt-0.5">7:15 AM • 1h 45m</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-black text-white">102.1K</div>
+                                    <div class="text-xs text-slate-custom">Volume Load</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all">
+                                <div class="flex items-center space-x-3">
+                                    <div class="text-center">
+                                        <div class="text-xl font-black text-white">20</div>
+                                        <div class="text-xs text-slate-custom">DEC</div>
+                                    </div>
+                                    <div class="w-px h-10 bg-slate-custom"></div>
+                                    <div>
+                                        <div class="font-bold text-sm">Pull Day - Back & Biceps</div>
+                                        <div class="text-xs text-slate-custom mt-0.5">6:30 AM • 1h 35m</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-xl font-black text-white">94.8K</div>
+                                    <div class="text-xs text-slate-custom">Volume Load</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                        <h3 class="text-base font-bold uppercase tracking-wide mb-4">RECENT BADGES</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-zinc-900">
+                                <div class="w-12 h-12 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                    <i class="fa-solid fa-weight-hanging text-deep-focus text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-xs">Volume Titan</div>
+                                    <div class="text-xs text-slate-custom">500K Total Volume</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-zinc-900">
+                                <div class="w-12 h-12 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                    <i class="fa-solid fa-fire text-deep-focus text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-xs">Month Warrior</div>
+                                    <div class="text-xs text-slate-custom">30 Day Streak</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center space-x-2.5 p-2.5 rounded-lg bg-zinc-900">
+                                <div class="w-12 h-12 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                    <i class="fa-solid fa-sun text-deep-focus text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-xs">Early Riser</div>
+                                    <div class="text-xs text-slate-custom">50 Morning Sessions</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Story -->
+            <section id="data-story" class="px-8 pb-8">
+                <div class="grid grid-cols-3 gap-6">
+                    <div
+                        class="col-span-2 bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h2 class="text-xl font-bold uppercase tracking-wide">VOLUME
+                                    PROGRESSION</h2>
+                                <p class="text-sm text-slate-custom mt-1">Total weight lifted
+                                    over time</p>
+                            </div>
+                            <div class="flex items-center space-x-2"><button
+                                class="px-4 py-2 rounded-lg bg-zinc-900 text-sm font-medium hover:bg-zinc-800 transition-all">Week</button><button
+                                class="px-4 py-2 rounded-lg bg-volt text-deep-focus text-sm font-bold">Month</button><button
+                                class="px-4 py-2 rounded-lg bg-zinc-900 text-sm font-medium hover:bg-zinc-800 transition-all">Year</button>
+                            </div>
+                        </div>
+                        <div id="volume-chart" style="height: 320px"></div>
+                    </div>
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="mb-6">
+                            <h2 class="text-xl font-bold uppercase tracking-wide">MUSCLE
+                                SPLIT</h2>
+                            <p class="text-sm text-slate-custom mt-1">Workout distribution
+                            </p>
+                        </div>
+                        <div id="muscle-split-chart" style="height: 320px"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="recent-activity" class="px-8 pb-8">
+                <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold uppercase tracking-wide">RECENT
+                            WORKOUTS</h2><button
+                            class="text-volt text-sm font-bold hover:underline">VIEW
+                            ALL</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b border-slate-custom">
+                                    <th
+                                        class="text-left py-3 px-4 text-xs font-bold text-slate-custom uppercase tracking-wide">
+                                        Date</th>
+                                    <th
+                                        class="text-left py-3 px-4 text-xs font-bold text-slate-custom uppercase tracking-wide">
+                                        Workout</th>
+                                    <th
+                                        class="text-left py-3 px-4 text-xs font-bold text-slate-custom uppercase tracking-wide">
+                                        Duration</th>
+                                    <th
+                                        class="text-right py-3 px-4 text-xs font-bold text-slate-custom uppercase tracking-wide">
+                                        Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    class="border-b border-zinc-800 hover:bg-zinc-900 transition-all">
+                                    <td class="py-4 px-4 text-sm font-medium">Today</td>
+                                    <td class="py-4 px-4">
+                                        <div class="font-bold text-sm">Push Day - Upper Body Power
+                                        </div>
+                                        <div class="text-xs text-slate-custom mt-1">6:45 AM •
+                                            87.4K lbs</div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm">1h 23m</td>
+                                    <td class="py-4 px-4 text-right"><span
+                                        class="text-xs font-bold text-volt bg-volt bg-opacity-10 px-3 py-1 rounded-full">NEW
+                                        PR</span></td>
+                                </tr>
+                                <tr
+                                    class="border-b border-zinc-800 hover:bg-zinc-900 transition-all">
+                                    <td class="py-4 px-4 text-sm font-medium">Yesterday</td>
+                                    <td class="py-4 px-4">
+                                        <div class="font-bold text-sm">Leg Day - Hypertrophy Focus
+                                        </div>
+                                        <div class="text-xs text-slate-custom mt-1">7:15 AM •
+                                            102.1K lbs</div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm">1h 45m</td>
+                                    <td class="py-4 px-4 text-right"><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">COMPLETE</span>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-zinc-900 transition-all">
+                                    <td class="py-4 px-4 text-sm font-medium">2 days ago</td>
+                                    <td class="py-4 px-4">
+                                        <div class="font-bold text-sm">Pull Day - Back &amp;
+                                            Biceps</div>
+                                        <div class="text-xs text-slate-custom mt-1">6:30 AM •
+                                            94.8K lbs</div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm">1h 35m</td>
+                                    <td class="py-4 px-4 text-right"><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">COMPLETE</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <section id="performance-metrics" class="px-8 pb-8">
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold uppercase tracking-wide">HEART RATE
+                                ZONES</h3><i
+                                class="fa-solid fa-heart-pulse text-volt text-xl"></i>
+                        </div>
+                        <div id="heart-rate-chart" style="height: 280px"></div>
+                    </div>
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold uppercase tracking-wide">MUSCLE
+                                RECOVERY</h3><i
+                                class="fa-solid fa-heart text-volt text-xl"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i
+                                            class="fa-solid fa-check text-deep-focus text-sm font-bold"></i>
+                                    </div>
+                                    <div class="font-bold text-sm">CHEST</div>
+                                </div>
+                                <div class="text-volt font-black text-lg">100%</div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i
+                                            class="fa-solid fa-check text-deep-focus text-sm font-bold"></i>
+                                    </div>
+                                    <div class="font-bold text-sm">BACK</div>
+                                </div>
+                                <div class="text-volt font-black text-lg">100%</div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg bg-yellow-500 bg-opacity-20 flex items-center justify-center">
+                                        <i class="fa-solid fa-clock text-yellow-500 text-sm"></i>
+                                    </div>
+                                    <div class="font-bold text-sm">LEGS</div>
+                                </div>
+                                <div class="text-yellow-500 font-black text-lg">67%</div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg bg-orange-500 bg-opacity-20 flex items-center justify-center">
+                                        <i
+                                            class="fa-solid fa-exclamation text-orange-500 text-sm"></i>
+                                    </div>
+                                    <div class="font-bold text-sm">SHOULDERS</div>
+                                </div>
+                                <div class="text-orange-500 font-black text-lg">34%</div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div class="flex items-center space-x-3">
+                                    <div
+                                        class="w-8 h-8 rounded-lg gradient-volt flex items-center justify-center glow-volt">
+                                        <i
+                                            class="fa-solid fa-check text-deep-focus text-sm font-bold"></i>
+                                    </div>
+                                    <div class="font-bold text-sm">ARMS</div>
+                                </div>
+                                <div class="text-volt font-black text-lg">95%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold uppercase tracking-wide">PERSONAL
+                                RECORDS</h3><i
+                                class="fa-solid fa-trophy text-volt text-xl"></i>
+                        </div>
+                        <div class="space-y-3">
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900 border border-volt">
+                                <div>
+                                    <div class="font-bold text-sm">BENCH PRESS</div>
+                                    <div class="text-xs text-slate-custom">3 days ago</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-volt font-black text-2xl">315</div>
+                                    <div class="text-xs text-slate-custom">lbs</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div>
+                                    <div class="font-bold text-sm">SQUAT</div>
+                                    <div class="text-xs text-slate-custom">1 week ago</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-black text-2xl">405</div>
+                                    <div class="text-xs text-slate-custom">lbs</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div>
+                                    <div class="font-bold text-sm">DEADLIFT</div>
+                                    <div class="text-xs text-slate-custom">2 weeks ago</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-black text-2xl">495</div>
+                                    <div class="text-xs text-slate-custom">lbs</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-3 rounded-xl bg-zinc-900">
+                                <div>
+                                    <div class="font-bold text-sm">OVERHEAD PRESS</div>
+                                    <div class="text-xs text-slate-custom">3 weeks ago</div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-white font-black text-2xl">185</div>
+                                    <div class="text-xs text-slate-custom">lbs</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="recent-activity-2" class="px-8 pb-8">
+                <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold uppercase tracking-wide">RECENT
+                            WORKOUTS</h2><button
+                            class="text-volt text-sm font-bold hover:underline">VIEW
+                            ALL</button>
+                    </div>
+                    <div class="space-y-4">
+                        <div
+                            class="flex items-center justify-between p-4 rounded-xl bg-zinc-900 border border-volt hover:bg-zinc-800 transition-all cursor-pointer">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl gradient-volt flex items-center justify-center glow-volt">
+                                    <i
+                                        class="fa-solid fa-dumbbell text-deep-focus text-2xl"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Push Day - Upper Body Power
+                                    </div>
+                                    <div class="text-sm text-slate-custom mt-1">Today at 6:45 AM
+                                        • 1h 23m</div>
+                                    <div class="flex items-center space-x-2 mt-2"><span
+                                        class="text-xs font-bold text-volt bg-volt bg-opacity-10 px-3 py-1 rounded-full">NEW
+                                        PR</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">CHEST</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">TRICEPS</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-black text-white">87.4K</div>
+                                <div class="text-sm text-slate-custom">Total Volume</div>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-blue-500 bg-opacity-20 flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-person-running text-blue-500 text-2xl"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Leg Day - Hypertrophy Focus
+                                    </div>
+                                    <div class="text-sm text-slate-custom mt-1">Yesterday at
+                                        7:15 AM • 1h 45m</div>
+                                    <div class="flex items-center space-x-2 mt-2"><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">QUADS</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">HAMSTRINGS</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">GLUTES</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-black text-white">102.1K</div>
+                                <div class="text-sm text-slate-custom">Total Volume</div>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                            <div class="flex items-center space-x-4">
+                                <div
+                                    class="w-14 h-14 rounded-xl bg-purple-500 bg-opacity-20 flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-hand-back-fist text-purple-500 text-2xl"></i>
+                                </div>
+                                <div>
+                                    <div class="font-bold text-lg">Pull Day - Back &amp; Biceps
+                                    </div>
+                                    <div class="text-sm text-slate-custom mt-1">2 days ago at
+                                        6:30 AM • 1h 35m</div>
+                                    <div class="flex items-center space-x-2 mt-2"><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">BACK</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">BICEPS</span><span
+                                        class="text-xs font-bold text-white bg-zinc-800 px-3 py-1 rounded-full">REAR
+                                        DELTS</span></div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-3xl font-black text-white">94.8K</div>
+                                <div class="text-sm text-slate-custom">Total Volume</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="strength-progression" class="px-8 pb-8">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold uppercase tracking-wide">STRENGTH
+                                PROGRESSION</h3><i
+                                class="fa-solid fa-arrow-trend-up text-volt text-xl"></i>
+                        </div>
+                        <div id="strength-chart" style="height: 300px"></div>
+                    </div>
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-lg font-bold uppercase tracking-wide">WORKOUT
+                                DURATION</h3><i
+                                class="fa-solid fa-clock text-volt text-xl"></i>
+                        </div>
+                        <div id="duration-chart" style="height: 300px"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="nutrition-overview" class="px-8 pb-8">
+                <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold uppercase tracking-wide">NUTRITION
+                                OVERVIEW</h2>
+                            <p class="text-sm text-slate-custom mt-1">Daily macronutrient
+                                tracking</p>
+                        </div><button
+                            class="px-6 py-2.5 rounded-xl bg-zinc-900 text-sm font-bold hover:bg-zinc-800 transition-all">
+                            LOG MEAL
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="p-6 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-4">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-red-500 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fa-solid fa-fire text-red-500 text-xl"></i></div>
+                                <span
+                                    class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-3 py-1 rounded-full">-125</span>
+                            </div>
+                            <div class="text-4xl font-black text-white mb-2">2,847</div>
+                            <div class="text-sm font-medium text-slate-custom uppercase">
+                                Calories</div>
+                            <div class="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-red-500" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-4">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-blue-500 bg-opacity-20 flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-drumstick-bite text-blue-500 text-xl"></i>
+                                </div><span
+                                    class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-3 py-1 rounded-full">+12g</span>
+                            </div>
+                            <div class="text-4xl font-black text-white mb-2">187g</div>
+                            <div class="text-sm font-medium text-slate-custom uppercase">
+                                Protein</div>
+                            <div class="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-blue-500" style="width: 104%"></div>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-4">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-yellow-500 bg-opacity-20 flex items-center justify-center">
+                                    <i
+                                        class="fa-solid fa-bread-slice text-yellow-500 text-xl"></i>
+                                </div><span
+                                    class="text-xs font-bold text-orange-400 bg-orange-400 bg-opacity-10 px-3 py-1 rounded-full">-34g</span>
+                            </div>
+                            <div class="text-4xl font-black text-white mb-2">216g</div>
+                            <div class="text-sm font-medium text-slate-custom uppercase">
+                                Carbs</div>
+                            <div class="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-yellow-500" style="width: 86%"></div>
+                            </div>
+                        </div>
+                        <div class="p-6 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-4">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-green-500 bg-opacity-20 flex items-center justify-center">
+                                    <i class="fa-solid fa-oil-can text-green-500 text-xl"></i>
+                                </div><span
+                                    class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-3 py-1 rounded-full">+5g</span>
+                            </div>
+                            <div class="text-4xl font-black text-white mb-2">68g</div>
+                            <div class="text-sm font-medium text-slate-custom uppercase">
+                                Fats</div>
+                            <div class="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
+                                <div class="h-full bg-green-500" style="width: 108%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="goals-achievements" class="px-8 pb-8">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold uppercase tracking-wide">ACTIVE
+                                GOALS</h2><button
+                                class="text-volt text-sm font-bold hover:underline">+ NEW
+                                GOAL</button>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-xl bg-zinc-900 border border-volt">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-bold">Bench Press 315 lbs</div><span
+                                        class="text-xs font-bold text-volt bg-volt bg-opacity-10 px-3 py-1 rounded-full">ACHIEVED</span>
+                                </div>
+                                <div
+                                    class="h-2 bg-zinc-800 rounded-full overflow-hidden mb-2">
+                                    <div class="h-full gradient-volt glow-volt" style="width: 100%">
+                                    </div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-xs text-slate-custom">
+                                    <span>315 / 315 lbs</span><span>Target: Dec 2024</span>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-zinc-900">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-bold">Deadlift 500 lbs</div><span
+                                        class="text-xs font-bold text-yellow-400 bg-yellow-400 bg-opacity-10 px-3 py-1 rounded-full">IN
+                                        PROGRESS</span>
+                                </div>
+                                <div
+                                    class="h-2 bg-zinc-800 rounded-full overflow-hidden mb-2">
+                                    <div class="h-full bg-volt" style="width: 99%"></div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-xs text-slate-custom">
+                                    <span>495 / 500 lbs</span><span>Target: Jan 2025</span>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-zinc-900">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-bold">100 Day Workout Streak</div><span
+                                        class="text-xs font-bold text-blue-400 bg-blue-400 bg-opacity-10 px-3 py-1 rounded-full">ACTIVE</span>
+                                </div>
+                                <div
+                                    class="h-2 bg-zinc-800 rounded-full overflow-hidden mb-2">
+                                    <div class="h-full bg-volt" style="width: 47%"></div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-xs text-slate-custom">
+                                    <span>47 / 100 days</span><span>Target: Feb 2025</span>
+                                </div>
+                            </div>
+                            <div class="p-4 rounded-xl bg-zinc-900">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-bold">Squat 450 lbs</div><span
+                                        class="text-xs font-bold text-blue-400 bg-blue-400 bg-opacity-10 px-3 py-1 rounded-full">ACTIVE</span>
+                                </div>
+                                <div
+                                    class="h-2 bg-zinc-800 rounded-full overflow-hidden mb-2">
+                                    <div class="h-full bg-volt" style="width: 90%"></div>
+                                </div>
+                                <div
+                                    class="flex items-center justify-between text-xs text-slate-custom">
+                                    <span>405 / 450 lbs</span><span>Target: Jan 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-bold uppercase tracking-wide">
+                                ACHIEVEMENTS</h2><button
+                                class="text-volt text-sm font-bold hover:underline">VIEW
+                                ALL</button>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full gradient-volt flex items-center justify-center glow-volt mb-3">
+                                    <i class="fa-solid fa-fire text-deep-focus text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm">50 Day Streak</div>
+                                    <div class="text-xs text-slate-custom mt-1">Unlocked</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full gradient-volt flex items-center justify-center glow-volt mb-3">
+                                    <i
+                                        class="fa-solid fa-weight-hanging text-deep-focus text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm">1M Volume</div>
+                                    <div class="text-xs text-slate-custom mt-1">Unlocked</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full gradient-volt flex items-center justify-center glow-volt mb-3">
+                                    <i class="fa-solid fa-trophy text-deep-focus text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm">10 PRs</div>
+                                    <div class="text-xs text-slate-custom mt-1">Unlocked</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full gradient-volt flex items-center justify-center glow-volt mb-3">
+                                    <i class="fa-solid fa-bolt text-deep-focus text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm">Elite Score</div>
+                                    <div class="text-xs text-slate-custom mt-1">Unlocked</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full gradient-volt flex items-center justify-center glow-volt mb-3">
+                                    <i
+                                        class="fa-solid fa-calendar-check text-deep-focus text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm">100 Workouts</div>
+                                    <div class="text-xs text-slate-custom mt-1">Unlocked</div>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col items-center p-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 transition-all cursor-pointer">
+                                <div
+                                    class="w-16 h-16 rounded-full bg-zinc-800 flex items-center justify-center mb-3">
+                                    <i class="fa-solid fa-lock text-slate-custom text-2xl"></i>
+                                </div>
+                                <div class="text-center">
+                                    <div class="font-bold text-sm text-slate-custom">200
+                                        Workouts</div>
+                                    <div class="text-xs text-slate-custom mt-1">Locked</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="workout-analytics" class="px-8 pb-8">
+                <div class="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold uppercase tracking-wide">DETAILED
+                            ANALYTICS</h2>
+                        <div class="flex items-center space-x-2"><button
+                            class="px-4 py-2 rounded-lg bg-volt text-deep-focus text-sm font-bold">This
+                            Month</button><button
+                            class="px-4 py-2 rounded-lg bg-zinc-900 text-sm font-medium hover:bg-zinc-800 transition-all">Last
+                            Month</button><button
+                            class="px-4 py-2 rounded-lg bg-zinc-900 text-sm font-medium hover:bg-zinc-800 transition-all">This
+                            Year</button></div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-clock text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+8%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">32.5h</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">
+                                Total Time</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-dumbbell text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+15%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">847</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">
+                                Total Sets</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-repeat text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+12%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">9,234</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">
+                                Total Reps</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-fire text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+18%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">47.2K</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">
+                                Calories</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-chart-line text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+9%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">1.2M</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">
+                                Volume (lbs)</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-stopwatch text-volt text-xl"></i><span
+                                class="text-xs font-bold text-orange-400 bg-orange-400 bg-opacity-10 px-2 py-1 rounded-full">-3%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">1:27</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">Avg
+                                Duration</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-gauge-high text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+21%</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">142</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">Avg
+                                HR</div>
+                        </div>
+                        <div class="p-5 rounded-xl bg-zinc-900">
+                            <div class="flex items-center justify-between mb-3"><i
+                                class="fa-solid fa-star text-volt text-xl"></i><span
+                                class="text-xs font-bold text-green-400 bg-green-400 bg-opacity-10 px-2 py-1 rounded-full">+5</span>
+                            </div>
+                            <div class="text-3xl font-black text-white mb-1">7</div>
+                            <div class="text-xs font-medium text-slate-custom uppercase">New
+                                PRs</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer id="footer" class="px-8 py-6 border-t border-slate-custom">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-8">
+                        <div class="flex items-center space-x-2">
+                            <div
+                                class="w-10 h-10 rounded-xl gradient-volt flex items-center justify-center glow-volt">
+                                <i class="fa-solid fa-dumbbell text-deep-focus text-lg"></i>
+                            </div><span class="font-bold text-lg">GRAVL</span>
+                        </div>
+                        <div class="text-sm text-slate-custom">© 2024 Gravl. All rights
+                            reserved.</div>
+                    </div>
+                    <div class="flex items-center space-x-6 text-sm text-slate-custom">
+                        <a href="#"
+                            class="hover:text-volt transition-colors">Privacy</a><a href="#"
+                            class="hover:text-volt transition-colors">Terms</a><a href="#"
+                            class="hover:text-volt transition-colors">Support</a><a href="#"
+                            class="hover:text-volt transition-colors">Documentation</a>
+                    </div>
+                    <div class="flex items-center space-x-4"><a href="#"
+                        class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-all"><i
+                            class="fa-brands fa-twitter text-slate-custom"></i></a><a
+                        href="#"
+                        class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-all"><i
+                            class="fa-brands fa-instagram text-slate-custom"></i></a><a
+                        href="#"
+                        class="w-10 h-10 rounded-lg bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 transition-all"><i
+                            class="fa-brands fa-youtube text-slate-custom"></i></a></div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+      window.addEventListener('load', function() {
+        try {
+          var muscleFocusData = [{
+            type: 'scatterpolar',
+            r: [85, 78, 92, 65, 88],
+            theta: ['Chest', 'Back', 'Legs', 'Shoulders', 'Arms'],
+            fill: 'toself',
+            fillcolor: 'rgba(190, 242, 2, 0.2)',
+            line: {
+              color: '#bef202',
+              width: 3
+            },
+            marker: {
+              color: '#bef202',
+              size: 8
+            }
+          }];
+          
+          var muscleFocusLayout = {
+            polar: {
+              radialaxis: {
+                visible: true,
+                range: [0, 100],
+                color: '#71717a',
+                gridcolor: '#27272a'
+              },
+              angularaxis: {
+                color: '#71717a',
+                gridcolor: '#27272a'
+              },
+              bgcolor: '#18181b'
+            },
+            margin: { t: 20, r: 60, b: 20, l: 60 },
+            paper_bgcolor: '#18181b',
+            showlegend: false
+          };
+          
+          Plotly.newPlot('muscle-focus-chart', muscleFocusData, muscleFocusLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+          var volumeData = [{
+            type: 'scatter',
+            mode: 'lines',
+            fill: 'tozeroy',
+            x: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+            y: [245000, 267000, 284000, 298000, 312000, 295000, 318000, 334000],
+            line: { color: '#bef202', width: 3 },
+            fillcolor: 'rgba(190, 242, 2, 0.2)'
+          }];
+
+          var volumeLayout = {
+            margin: { t: 20, r: 20, b: 40, l: 60 },
+            plot_bgcolor: '#18181b',
+            paper_bgcolor: '#18181b',
+            xaxis: { color: '#71717a', gridcolor: '#27272a' },
+            yaxis: { color: '#71717a', gridcolor: '#27272a', title: 'Volume (lbs)' },
+            showlegend: false,
+            hovermode: 'x unified'
+          };
+
+          Plotly.newPlot('volume-chart', volumeData, volumeLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+          var muscleSplitData = [{
+            type: 'pie',
+            labels: ['Push', 'Pull', 'Legs'],
+            values: [35, 33, 32],
+            marker: { colors: ['#bef202', '#84cc16', '#22c55e'] },
+            hole: 0.6
+          }];
+
+          var muscleSplitLayout = {
+            margin: { t: 10, r: 10, b: 10, l: 10 },
+            plot_bgcolor: '#18181b',
+            paper_bgcolor: '#18181b',
+            showlegend: true,
+            legend: { font: { color: '#71717a', size: 11 }, orientation: 'v', x: 1, y: 0.5 }
+          };
+
+          Plotly.newPlot('muscle-split-chart', muscleSplitData, muscleSplitLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+          var heartRateData = [{
+            type: 'bar',
+            x: ['Zone 1', 'Zone 2', 'Zone 3', 'Zone 4', 'Zone 5'],
+            y: [12, 28, 35, 18, 7],
+            marker: { color: ['#22c55e', '#84cc16', '#eab308', '#f97316', '#ef4444'] }
+          }];
+
+          var heartRateLayout = {
+            margin: { t: 10, r: 20, b: 40, l: 40 },
+            plot_bgcolor: '#18181b',
+            paper_bgcolor: '#18181b',
+            xaxis: { color: '#71717a' },
+            yaxis: { color: '#71717a', title: 'Minutes' },
+            showlegend: false
+          };
+
+          Plotly.newPlot('heart-rate-chart', heartRateData, heartRateLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+          var strengthData = [
+            { type: 'scatter', mode: 'lines', name: 'Bench Press', x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'], y: [275, 285, 290, 295, 300, 305, 310, 315], line: { color: '#bef202', width: 3 } },
+            { type: 'scatter', mode: 'lines', name: 'Squat', x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'], y: [365, 375, 380, 385, 390, 395, 400, 405], line: { color: '#3b82f6', width: 3 } },
+            { type: 'scatter', mode: 'lines', name: 'Deadlift', x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'], y: [425, 440, 450, 460, 470, 475, 485, 495], line: { color: '#8b5cf6', width: 3 } }
+          ];
+
+          var strengthLayout = {
+            margin: { t: 20, r: 20, b: 40, l: 50 },
+            plot_bgcolor: '#18181b',
+            paper_bgcolor: '#18181b',
+            xaxis: { color: '#71717a' },
+            yaxis: { color: '#71717a', title: 'Weight (lbs)' },
+            showlegend: true,
+            legend: { font: { color: '#71717a' }, orientation: 'h', y: -0.2 }
+          };
+
+          Plotly.newPlot('strength-chart', strengthData, strengthLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+          var durationData = [{
+            type: 'bar',
+            x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            y: [82, 95, 0, 88, 91, 105, 0],
+            marker: { color: '#bef202' }
+          }];
+
+          var durationLayout = {
+            margin: { t: 20, r: 20, b: 40, l: 50 },
+            plot_bgcolor: '#18181b',
+            paper_bgcolor: '#18181b',
+            xaxis: { color: '#71717a' },
+            yaxis: { color: '#71717a', title: 'Minutes' },
+            showlegend: false
+          };
+
+          Plotly.newPlot('duration-chart', durationData, durationLayout, {
+            responsive: true,
+            displayModeBar: false,
+            displaylogo: false
+          });
+
+        } catch (e) {
+          console.error('Chart rendering error:', e);
+        }
+      });
+    </script>
+</body>
+</html>
