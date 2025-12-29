@@ -12,12 +12,6 @@ export function DashboardHeader({ stats, user }: DashboardHeaderProps) {
         <header id="header" className="h-20 bg-gravl-bg border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-10">
             <div className="flex items-center space-x-12">
                 <div className="text-2xl font-black text-gravl-lime tracking-tighter">GRAVL</div>
-                <nav className="hidden md:flex items-center space-x-8">
-                    <Button variant="link" className="text-white font-bold text-sm p-0 hover:text-gravl-lime no-underline transition-colors">Dashboard</Button>
-                    <Button variant="link" className="text-gray-400 font-medium text-sm p-0 hover:text-white no-underline transition-colors">Workouts</Button>
-                    <Button variant="link" className="text-gray-400 font-medium text-sm p-0 hover:text-white no-underline transition-colors">Analytics</Button>
-                    <Button variant="link" className="text-gray-400 font-medium text-sm p-0 hover:text-white no-underline transition-colors">Community</Button>
-                </nav>
             </div>
 
             <div className="flex items-center space-x-6">
