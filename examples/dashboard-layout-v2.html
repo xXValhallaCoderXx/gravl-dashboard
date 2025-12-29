@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest'};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.plot.ly/plotly-3.1.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>::-webkit-scrollbar { display: none;}</style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'deep-navy': '#0b0e14',
+                        'dark-blue-grey': '#151922',
+                        'neon-lime': '#ccff00',
+                        'periwinkle': '#4c6ef5',
+                        'hot-pink': '#ff4d4d',
+                        'electric-purple': '#a855f7',
+                        'subtle-slate': '#27272a',
+                        'cool-grey': '#71717a'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-deep-navy text-white font-sans">
+
+<div id="header" class="fixed top-0 left-0 right-0 h-16 bg-dark-blue-grey border-b border-subtle-slate z-50 flex items-center px-6">
+    <div class="flex items-center">
+        <div class="text-2xl font-bold text-neon-lime">GRAVL</div>
+        <div class="ml-8 flex items-center space-x-6">
+            <a href="#" class="text-white font-medium">Dashboard</a>
+            <a href="#" class="text-cool-grey hover:text-white transition">Workouts</a>
+            <a href="#" class="text-cool-grey hover:text-white transition">Analytics</a>
+            <a href="#" class="text-cool-grey hover:text-white transition">Progress</a>
+            <a href="#" class="text-cool-grey hover:text-white transition">Nutrition</a>
+        </div>
+    </div>
+    <div class="ml-auto flex items-center space-x-4">
+        <button class="w-10 h-10 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+            <i class="fa-solid fa-bell text-cool-grey"></i>
+        </button>
+        <button class="w-10 h-10 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+            <i class="fa-solid fa-cog text-cool-grey"></i>
+        </button>
+        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" class="w-10 h-10 rounded-full border-2 border-neon-lime" alt="User Avatar">
+    </div>
+</div>
+
+<div id="main-content" class="pt-16 px-6 pb-8">
+    
+    <div id="welcome-section" class="py-6">
+        <h1 class="text-4xl font-bold mb-2">Welcome back, <span class="text-neon-lime">Marcus</span></h1>
+        <p class="text-cool-grey text-lg">Ready to dominate today's session? Your performance metrics are looking strong.</p>
+    </div>
+
+    <div id="row-1-action-vitals" class="grid grid-cols-12 gap-6 mb-6">
+        
+        <div id="next-workout-card" class="col-span-7 bg-dark-blue-grey rounded-2xl border border-subtle-slate overflow-hidden">
+            <div class="bg-neon-lime px-6 py-3">
+                <h2 class="text-black font-bold text-sm tracking-wider">NEXT WORKOUT</h2>
+            </div>
+            <div class="p-6">
+                <h3 class="text-2xl font-bold mb-2">Quads, Hamstrings, Calves, Abductors</h3>
+                <p class="text-cool-grey mb-6">63 mins • 5 exercises</p>
+                
+                <div class="flex space-x-3 mb-6">
+                    <div class="w-20 h-20 rounded-xl bg-subtle-slate overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/d7530b95bb-edef25c14882e7fe6f39.png" alt="athlete performing barbell squat in dark gym with dramatic lighting" />
+                    </div>
+                    <div class="w-20 h-20 rounded-xl bg-subtle-slate overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/8ea3373701-9b9dba6a5bdc05ce1ced.png" alt="leg press machine exercise close up in moody gym setting" />
+                    </div>
+                    <div class="w-20 h-20 rounded-xl bg-subtle-slate overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/484245d247-b3e26bf424bb85f5c41e.png" alt="calf raise exercise with weights dark atmosphere" />
+                    </div>
+                    <div class="w-20 h-20 rounded-xl bg-subtle-slate overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/9e44ffed20-e786724844f57bb39ca5.png" alt="hip abduction machine exercise in modern gym" />
+                    </div>
+                    <div class="w-20 h-20 rounded-xl bg-subtle-slate overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/2b2edf9b10-eca8e4d74f029f200cba.png" alt="leg extension machine workout dramatic shadows" />
+                    </div>
+                </div>
+
+                <div class="flex space-x-3">
+                    <button class="w-12 h-12 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-cool-grey transition">
+                        <i class="fa-solid fa-forward text-cool-grey"></i>
+                    </button>
+                    <button class="w-12 h-12 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-cool-grey transition">
+                        <i class="fa-solid fa-rotate-right text-cool-grey"></i>
+                    </button>
+                    <button class="w-12 h-12 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-cool-grey transition">
+                        <i class="fa-solid fa-clock text-cool-grey"></i>
+                    </button>
+                    <button class="flex-1 h-12 rounded-full bg-neon-lime text-black font-bold flex items-center justify-center hover:bg-opacity-90 transition">
+                        <i class="fa-solid fa-play mr-2"></i>
+                        START WORKOUT
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="vitals-section" class="col-span-5 grid grid-cols-2 gap-6">
+            
+            <div id="recovery-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+                <h3 class="text-lg font-semibold mb-4">Muscle Recovery</h3>
+                <div id="recovery-chart" style="height: 200px;"></div>
+            </div>
+
+            <div id="strength-score-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+                <h3 class="text-lg font-semibold mb-4">Strength Score</h3>
+                <div id="strength-chart" style="height: 200px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="row-2-trends" class="grid grid-cols-4 gap-6 mb-6">
+        
+        <div id="workouts-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6 relative">
+            <div class="absolute top-4 right-4 bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                <i class="fa-solid fa-arrow-up text-xs mr-1"></i>
+                +5%
+            </div>
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-xl bg-electric-purple bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-clock text-electric-purple text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-cool-grey text-sm">Workouts</p>
+                </div>
+            </div>
+            <p class="text-3xl font-bold font-mono">4h 15min</p>
+            <p class="text-cool-grey text-xs mt-1">This week</p>
+        </div>
+
+        <div id="volume-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6 relative">
+            <div class="absolute top-4 right-4 bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                <i class="fa-solid fa-arrow-up text-xs mr-1"></i>
+                +12%
+            </div>
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-dumbbell text-periwinkle text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-cool-grey text-sm">Volume</p>
+                </div>
+            </div>
+            <p class="text-3xl font-bold font-mono">13,689 kg</p>
+            <p class="text-cool-grey text-xs mt-1">Total lifted</p>
+        </div>
+
+        <div id="calories-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6 relative">
+            <div class="absolute top-4 right-4 bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                <i class="fa-solid fa-arrow-up text-xs mr-1"></i>
+                +8%
+            </div>
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-xl bg-hot-pink bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-fire text-hot-pink text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-cool-grey text-sm">Calories</p>
+                </div>
+            </div>
+            <p class="text-3xl font-bold font-mono">1,056</p>
+            <p class="text-cool-grey text-xs mt-1">Burned</p>
+        </div>
+
+        <div id="sets-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6 relative">
+            <div class="absolute top-4 right-4 bg-green-500 bg-opacity-20 text-green-400 px-2 py-1 rounded-full text-xs font-semibold flex items-center">
+                <i class="fa-solid fa-arrow-up text-xs mr-1"></i>
+                +3%
+            </div>
+            <div class="flex items-center mb-3">
+                <div class="w-10 h-10 rounded-xl bg-electric-purple bg-opacity-20 flex items-center justify-center mr-3">
+                    <i class="fa-solid fa-layer-group text-electric-purple text-lg"></i>
+                </div>
+                <div>
+                    <p class="text-cool-grey text-sm">Sets</p>
+                </div>
+            </div>
+            <p class="text-3xl font-bold font-mono">53</p>
+            <p class="text-cool-grey text-xs mt-1">Completed</p>
+        </div>
+    </div>
+
+    <div id="row-3-deep-dive" class="grid grid-cols-2 gap-6 mb-6">
+        
+        <div id="recent-history-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Recent Workouts</h3>
+                <button class="text-neon-lime text-sm font-semibold hover:underline">View All</button>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate hover:border-cool-grey transition">
+                    <div class="flex items-center flex-1">
+                        <div class="w-12 h-12 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-dumbbell text-periwinkle"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold">Pull Day A</p>
+                            <p class="text-cool-grey text-sm">Mon, Dec 29</p>
+                        </div>
+                    </div>
+                    <div class="text-right mr-4">
+                        <p class="font-mono font-semibold">2,847 kg</p>
+                        <p class="text-cool-grey text-xs">Volume</p>
+                    </div>
+                    <button class="w-8 h-8 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-solid fa-arrow-right text-cool-grey text-sm"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate hover:border-cool-grey transition">
+                    <div class="flex items-center flex-1">
+                        <div class="w-12 h-12 rounded-xl bg-electric-purple bg-opacity-20 flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-person-running text-electric-purple"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold">Leg Day B</p>
+                            <p class="text-cool-grey text-sm">Sat, Dec 27</p>
+                        </div>
+                    </div>
+                    <div class="text-right mr-4">
+                        <p class="font-mono font-semibold">3,156 kg</p>
+                        <p class="text-cool-grey text-xs">Volume</p>
+                    </div>
+                    <button class="w-8 h-8 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-solid fa-arrow-right text-cool-grey text-sm"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate hover:border-cool-grey transition">
+                    <div class="flex items-center flex-1">
+                        <div class="w-12 h-12 rounded-xl bg-hot-pink bg-opacity-20 flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-heart-pulse text-hot-pink"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold">Push Day A</p>
+                            <p class="text-cool-grey text-sm">Thu, Dec 25</p>
+                        </div>
+                    </div>
+                    <div class="text-right mr-4">
+                        <p class="font-mono font-semibold">2,634 kg</p>
+                        <p class="text-cool-grey text-xs">Volume</p>
+                    </div>
+                    <button class="w-8 h-8 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-solid fa-arrow-right text-cool-grey text-sm"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate hover:border-cool-grey transition">
+                    <div class="flex items-center flex-1">
+                        <div class="w-12 h-12 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center mr-4">
+                            <i class="fa-solid fa-dumbbell text-periwinkle"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="font-semibold">Pull Day B</p>
+                            <p class="text-cool-grey text-sm">Tue, Dec 23</p>
+                        </div>
+                    </div>
+                    <div class="text-right mr-4">
+                        <p class="font-mono font-semibold">2,912 kg</p>
+                        <p class="text-cool-grey text-xs">Volume</p>
+                    </div>
+                    <button class="w-8 h-8 rounded-full bg-dark-blue-grey border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-solid fa-arrow-right text-cool-grey text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="strength-details-card" class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Strength Details</h3>
+                <button class="text-neon-lime text-sm font-semibold hover:underline">Full Report</button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate">
+                    <div class="flex items-center flex-1">
+                        <div class="relative w-16 h-16 mr-4">
+                            <svg class="w-16 h-16 transform -rotate-90">
+                                <circle cx="32" cy="32" r="28" stroke="#27272a" stroke-width="4" fill="none"></circle>
+                                <circle cx="32" cy="32" r="28" stroke="#4c6ef5" stroke-width="4" fill="none" stroke-dasharray="176" stroke-dashoffset="35" stroke-linecap="round"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold">179</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg">Chest</p>
+                            <p class="text-cool-grey text-sm">Advanced</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-cool-grey"></i>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate">
+                    <div class="flex items-center flex-1">
+                        <div class="relative w-16 h-16 mr-4">
+                            <svg class="w-16 h-16 transform -rotate-90">
+                                <circle cx="32" cy="32" r="28" stroke="#27272a" stroke-width="4" fill="none"></circle>
+                                <circle cx="32" cy="32" r="28" stroke="#4c6ef5" stroke-width="4" fill="none" stroke-dasharray="176" stroke-dashoffset="20" stroke-linecap="round"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold">195</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg">Back</p>
+                            <p class="text-cool-grey text-sm">Elite</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-cool-grey"></i>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate">
+                    <div class="flex items-center flex-1">
+                        <div class="relative w-16 h-16 mr-4">
+                            <svg class="w-16 h-16 transform -rotate-90">
+                                <circle cx="32" cy="32" r="28" stroke="#27272a" stroke-width="4" fill="none"></circle>
+                                <circle cx="32" cy="32" r="28" stroke="#4c6ef5" stroke-width="4" fill="none" stroke-dasharray="176" stroke-dashoffset="55" stroke-linecap="round"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold">142</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg">Legs</p>
+                            <p class="text-cool-grey text-sm">Intermediate</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-cool-grey"></i>
+                </div>
+
+                <div class="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-subtle-slate">
+                    <div class="flex items-center flex-1">
+                        <div class="relative w-16 h-16 mr-4">
+                            <svg class="w-16 h-16 transform -rotate-90">
+                                <circle cx="32" cy="32" r="28" stroke="#27272a" stroke-width="4" fill="none"></circle>
+                                <circle cx="32" cy="32" r="28" stroke="#4c6ef5" stroke-width="4" fill="none" stroke-dasharray="176" stroke-dashoffset="40" stroke-linecap="round"></circle>
+                            </svg>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-lg font-bold">168</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg">Shoulders</p>
+                            <p class="text-cool-grey text-sm">Advanced</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-cool-grey"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="weekly-performance-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Weekly Performance</h3>
+                    <p class="text-cool-grey text-sm">Your training volume over the past 7 days</p>
+                </div>
+                <div class="flex space-x-2">
+                    <button class="px-4 py-2 rounded-lg bg-neon-lime text-black font-semibold text-sm">Week</button>
+                    <button class="px-4 py-2 rounded-lg bg-deep-navy text-cool-grey font-semibold text-sm border border-subtle-slate hover:border-cool-grey transition">Month</button>
+                    <button class="px-4 py-2 rounded-lg bg-deep-navy text-cool-grey font-semibold text-sm border border-subtle-slate hover:border-cool-grey transition">Year</button>
+                </div>
+            </div>
+            <div id="weekly-chart" style="height: 300px;"></div>
+        </div>
+    </div>
+
+    <div id="exercise-library-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Exercise Library</h3>
+                <button class="text-neon-lime text-sm font-semibold hover:underline flex items-center">
+                    Browse All
+                    <i class="fa-solid fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate overflow-hidden hover:border-neon-lime transition cursor-pointer">
+                    <div class="h-32 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/e340547706-0092342f6911c564fd31.png" alt="barbell bench press exercise in dark gym dramatic lighting" />
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-1">Bench Press</h4>
+                        <p class="text-cool-grey text-xs">Chest • Compound</p>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate overflow-hidden hover:border-neon-lime transition cursor-pointer">
+                    <div class="h-32 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/29220f0184-7d1c364fcf84148900d4.png" alt="deadlift exercise with barbell moody gym atmosphere" />
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-1">Deadlift</h4>
+                        <p class="text-cool-grey text-xs">Back • Compound</p>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate overflow-hidden hover:border-neon-lime transition cursor-pointer">
+                    <div class="h-32 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/670aeb1e30-d4241405abd5bc8df580.png" alt="barbell squat exercise dark lighting high contrast" />
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-1">Squat</h4>
+                        <p class="text-cool-grey text-xs">Legs • Compound</p>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate overflow-hidden hover:border-neon-lime transition cursor-pointer">
+                    <div class="h-32 overflow-hidden">
+                        <img class="w-full h-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/de76c0907b-0eca1d9b522e361abfc7.png" alt="overhead press exercise with dumbbells dramatic shadows" />
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold mb-1">Shoulder Press</h4>
+                        <p class="text-cool-grey text-xs">Shoulders • Compound</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nutrition-tracker-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Nutrition Tracker</h3>
+                    <p class="text-cool-grey text-sm">Today's macronutrient breakdown</p>
+                </div>
+                <button class="px-4 py-2 rounded-lg bg-neon-lime text-black font-semibold text-sm">Log Meal</button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 mb-6">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-xl bg-hot-pink bg-opacity-20 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-fire text-hot-pink"></i>
+                            </div>
+                            <span class="text-cool-grey text-sm">Calories</span>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold font-mono mb-1">2,487</p>
+                    <p class="text-cool-grey text-xs">of 2,800 goal</p>
+                    <div class="mt-4 h-2 bg-subtle-slate rounded-full overflow-hidden">
+                        <div class="h-full bg-hot-pink rounded-full" style="width: 88.8%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-drumstick-bite text-periwinkle"></i>
+                            </div>
+                            <span class="text-cool-grey text-sm">Protein</span>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold font-mono mb-1">186g</p>
+                    <p class="text-cool-grey text-xs">of 200g goal</p>
+                    <div class="mt-4 h-2 bg-subtle-slate rounded-full overflow-hidden">
+                        <div class="h-full bg-periwinkle rounded-full" style="width: 93%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-xl bg-neon-lime bg-opacity-20 flex items-center justify-center mr-3">
+                                <i class="fa-solid fa-wheat-awn text-neon-lime"></i>
+                            </div>
+                            <span class="text-cool-grey text-sm">Carbs</span>
+                        </div>
+                    </div>
+                    <p class="text-3xl font-bold font-mono mb-1">264g</p>
+                    <p class="text-cool-grey text-xs">of 300g goal</p>
+                    <div class="mt-4 h-2 bg-subtle-slate rounded-full overflow-hidden">
+                        <div class="h-full bg-neon-lime rounded-full" style="width: 88%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold mb-3">Recent Meals</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-3 bg-deep-navy rounded-lg border border-subtle-slate">
+                            <div>
+                                <p class="font-medium">Grilled Chicken & Rice</p>
+                                <p class="text-cool-grey text-xs">Lunch • 12:30 PM</p>
+                            </div>
+                            <p class="font-mono font-semibold">687 cal</p>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-deep-navy rounded-lg border border-subtle-slate">
+                            <div>
+                                <p class="font-medium">Protein Shake</p>
+                                <p class="text-cool-grey text-xs">Snack • 3:15 PM</p>
+                            </div>
+                            <p class="font-mono font-semibold">245 cal</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-3">Hydration</h4>
+                    <div class="bg-deep-navy rounded-lg border border-subtle-slate p-4">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-cool-grey text-sm">Water Intake</span>
+                            <span class="font-mono font-semibold">2.4L / 3.0L</span>
+                        </div>
+                        <div class="h-2 bg-subtle-slate rounded-full overflow-hidden mb-4">
+                            <div class="h-full bg-periwinkle rounded-full" style="width: 80%"></div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="flex-1 py-2 rounded-lg bg-periwinkle bg-opacity-20 text-periwinkle font-semibold text-sm hover:bg-opacity-30 transition">
+                                +250ml
+                            </button>
+                            <button class="flex-1 py-2 rounded-lg bg-periwinkle bg-opacity-20 text-periwinkle font-semibold text-sm hover:bg-opacity-30 transition">
+                                +500ml
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="personal-records-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Personal Records</h3>
+                <button class="text-neon-lime text-sm font-semibold hover:underline">View All PRs</button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6 relative overflow-hidden">
+                    <div class="absolute top-2 right-2 bg-neon-lime text-black px-2 py-1 rounded-full text-xs font-bold">
+                        NEW
+                    </div>
+                    <div class="mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-neon-lime bg-opacity-20 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-trophy text-neon-lime text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-lg mb-1">Bench Press</h4>
+                        <p class="text-cool-grey text-sm">1 Rep Max</p>
+                    </div>
+                    <p class="text-4xl font-bold font-mono text-neon-lime mb-1">135 kg</p>
+                    <p class="text-cool-grey text-xs">Set on Dec 28, 2024</p>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-award text-periwinkle text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-lg mb-1">Deadlift</h4>
+                        <p class="text-cool-grey text-sm">1 Rep Max</p>
+                    </div>
+                    <p class="text-4xl font-bold font-mono mb-1">180 kg</p>
+                    <p class="text-cool-grey text-xs">Set on Dec 21, 2024</p>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-electric-purple bg-opacity-20 flex items-center justify-center mb-3">
+                            <i class="fa-solid fa-medal text-electric-purple text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-lg mb-1">Squat</h4>
+                        <p class="text-cool-grey text-sm">1 Rep Max</p>
+                    </div>
+                    <p class="text-4xl font-bold font-mono mb-1">160 kg</p>
+                    <p class="text-cool-grey text-xs">Set on Dec 15, 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="training-insights-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Training Insights</h3>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <h4 class="font-semibold mb-4">Muscle Group Balance</h4>
+                    <div id="muscle-balance-chart" style="height: 280px;"></div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <h4 class="font-semibold mb-4">Volume Progression</h4>
+                    <div id="volume-progression-chart" style="height: 280px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="community-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-1">Community Feed</h3>
+                    <p class="text-cool-grey text-sm">See what other athletes are achieving</p>
+                </div>
+                <button class="px-4 py-2 rounded-lg bg-neon-lime text-black font-semibold text-sm">Share Workout</button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-5">
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" class="w-12 h-12 rounded-full border-2 border-periwinkle mr-3" alt="User">
+                        <div class="flex-1">
+                            <p class="font-semibold">Alex Martinez</p>
+                            <p class="text-cool-grey text-xs">2 hours ago</p>
+                        </div>
+                        <button class="text-cool-grey hover:text-white">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </button>
+                    </div>
+                    <p class="mb-4">Just hit a new PR on bench press! 140kg for 1 rep. Feeling unstoppable 💪🔥</p>
+                    <div class="flex items-center space-x-4 text-cool-grey text-sm">
+                        <button class="hover:text-hot-pink transition">
+                            <i class="fa-solid fa-heart mr-1"></i>
+                            <span>47</span>
+                        </button>
+                        <button class="hover:text-periwinkle transition">
+                            <i class="fa-solid fa-comment mr-1"></i>
+                            <span>12</span>
+                        </button>
+                        <button class="hover:text-neon-lime transition">
+                            <i class="fa-solid fa-share mr-1"></i>
+                            <span>5</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-5">
+                    <div class="flex items-center mb-4">
+                        <img src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" class="w-12 h-12 rounded-full border-2 border-electric-purple mr-3" alt="User">
+                        <div class="flex-1">
+                            <p class="font-semibold">Sarah Chen</p>
+                            <p class="text-cool-grey text-xs">5 hours ago</p>
+                        </div>
+                        <button class="text-cool-grey hover:text-white">
+                            <i class="fa-solid fa-ellipsis"></i>
+                        </button>
+                    </div>
+                    <p class="mb-4">Completed my first marathon training cycle with Gravl. The structured progression made all the difference! 🏃‍♀️</p>
+                    <div class="flex items-center space-x-4 text-cool-grey text-sm">
+                        <button class="hover:text-hot-pink transition">
+                            <i class="fa-solid fa-heart mr-1"></i>
+                            <span>89</span>
+                        </button>
+                        <button class="hover:text-periwinkle transition">
+                            <i class="fa-solid fa-comment mr-1"></i>
+                            <span>23</span>
+                        </button>
+                        <button class="hover:text-neon-lime transition">
+                            <i class="fa-solid fa-share mr-1"></i>
+                            <span>8</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="goals-section" class="mb-6">
+        <div class="bg-dark-blue-grey rounded-2xl border border-subtle-slate p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold">Active Goals</h3>
+                <button class="text-neon-lime text-sm font-semibold hover:underline flex items-center">
+                    <i class="fa-solid fa-plus mr-2"></i>
+                    New Goal
+                </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-neon-lime bg-opacity-20 flex items-center justify-center">
+                            <i class="fa-solid fa-bullseye text-neon-lime"></i>
+                        </div>
+                        <span class="text-xs font-semibold text-neon-lime bg-neon-lime bg-opacity-20 px-2 py-1 rounded-full">IN PROGRESS</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">Reach 150kg Bench Press</h4>
+                    <p class="text-cool-grey text-sm mb-4">Target: March 2025</p>
+                    <div class="mb-2">
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-cool-grey">Progress</span>
+                            <span class="font-mono font-semibold">90%</span>
+                        </div>
+                        <div class="h-2 bg-subtle-slate rounded-full overflow-hidden">
+                            <div class="h-full bg-neon-lime rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-periwinkle bg-opacity-20 flex items-center justify-center">
+                            <i class="fa-solid fa-chart-line text-periwinkle"></i>
+                        </div>
+                        <span class="text-xs font-semibold text-periwinkle bg-periwinkle bg-opacity-20 px-2 py-1 rounded-full">IN PROGRESS</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">Train 5 Days Per Week</h4>
+                    <p class="text-cool-grey text-sm mb-4">12-week commitment</p>
+                    <div class="mb-2">
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-cool-grey">Progress</span>
+                            <span class="font-mono font-semibold">67%</span>
+                        </div>
+                        <div class="h-2 bg-subtle-slate rounded-full overflow-hidden">
+                            <div class="h-full bg-periwinkle rounded-full" style="width: 67%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-deep-navy rounded-xl border border-subtle-slate p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-hot-pink bg-opacity-20 flex items-center justify-center">
+                            <i class="fa-solid fa-fire text-hot-pink"></i>
+                        </div>
+                        <span class="text-xs font-semibold text-hot-pink bg-hot-pink bg-opacity-20 px-2 py-1 rounded-full">IN PROGRESS</span>
+                    </div>
+                    <h4 class="font-semibold mb-2">Burn 2000 Cal/Day</h4>
+                    <p class="text-cool-grey text-sm mb-4">30-day challenge</p>
+                    <div class="mb-2">
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-cool-grey">Progress</span>
+                            <span class="font-mono font-semibold">43%</span>
+                        </div>
+                        <div class="h-2 bg-subtle-slate rounded-full overflow-hidden">
+                            <div class="h-full bg-hot-pink rounded-full" style="width: 43%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer" class="bg-dark-blue-grey border-t border-subtle-slate py-8 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-4 gap-8 mb-8">
+            <div>
+                <div class="text-2xl font-bold text-neon-lime mb-4">GRAVL</div>
+                <p class="text-cool-grey text-sm mb-4">Mission Control for Human Performance</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="w-8 h-8 rounded-full bg-deep-navy border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-brands fa-instagram text-cool-grey"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-deep-navy border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-brands fa-twitter text-cool-grey"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-deep-navy border border-subtle-slate flex items-center justify-center hover:border-neon-lime transition">
+                        <i class="fa-brands fa-youtube text-cool-grey"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Product</h4>
+                <ul class="space-y-2 text-cool-grey text-sm">
+                    <li><a href="#" class="hover:text-neon-lime transition">Features</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Pricing</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Integrations</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">API</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Company</h4>
+                <ul class="space-y-2 text-cool-grey text-sm">
+                    <li><a href="#" class="hover:text-neon-lime transition">About</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Blog</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Careers</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Support</h4>
+                <ul class="space-y-2 text-cool-grey text-sm">
+                    <li><a href="#" class="hover:text-neon-lime transition">Help Center</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Community</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Privacy</a></li>
+                    <li><a href="#" class="hover:text-neon-lime transition">Terms</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-subtle-slate pt-6 flex items-center justify-between">
+            <p class="text-cool-grey text-sm">© 2024 Gravl. All rights reserved.</p>
+            <p class="text-cool-grey text-sm">Built for athletes who demand excellence</p>
+        </div>
+    </div>
+</div>
+
+<script>
+window.addEventListener('load', function() {
+    try {
+        var recoveryData = [{
+            values: [65, 25, 10],
+            labels: ['Ready', 'Recovering', 'Sore'],
+            type: 'pie',
+            hole: 0.6,
+            marker: {
+                colors: ['#22c55e', '#eab308', '#ef4444']
+            },
+            textinfo: 'none',
+            hovertemplate: '%{label}: %{value}%<extra></extra>'
+        }];
+
+        var recoveryLayout = {
+            showlegend: true,
+            legend: {
+                orientation: 'v',
+                x: 1,
+                y: 0.5,
+                font: { color: '#71717a', size: 10 }
+            },
+            margin: { t: 10, r: 10, b: 10, l: 10 },
+            paper_bgcolor: '#151922',
+            plot_bgcolor: '#151922',
+            annotations: [{
+                text: '<b>97%</b><br><span style="font-size:10px;color:#22c55e">Ready</span>',
+                x: 0.5,
+                y: 0.5,
+                showarrow: false,
+                font: { size: 20, color: '#ffffff' }
+            }]
+        };
+
+        var recoveryConfig = {responsive: true, displayModeBar: false, displaylogo: false};
+        Plotly.newPlot('recovery-chart', recoveryData, recoveryLayout, recoveryConfig);
+
+        var strengthData = [{
+            type: 'scatter',
+            mode: 'lines',
+            x: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+            y: [120, 125, 128, 132, 133, 135],
+            line: { color: '#4c6ef5', width: 2 },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(76, 110, 245, 0.1)'
+        }];
+
+        var strengthLayout = {
+            showlegend: false,
+            margin: { t: 20, r: 10, b: 30, l: 30 },
+            paper_bgcolor: '#151922',
+            plot_bgcolor: '#151922',
+            xaxis: { 
+                showgrid: false, 
+                color: '#71717a',
+                tickfont: { size: 9 }
+            },
+            yaxis: { 
+                showgrid: true, 
+                gridcolor: '#27272a',
+                color: '#71717a',
+                tickfont: { size: 9 }
+            },
+            annotations: [{
+                text: '<b>135</b><br><span style="font-size:10px;color:#71717a">Experienced</span>',
+                x: 0.5,
+                y: 0.5,
+                xref: 'paper',
+                yref: 'paper',
+                showarrow: false,
+                font: { size: 18, color: '#ffffff' }
+            }]
+        };
+
+        var strengthConfig = {responsive: true, displayModeBar: false, displaylogo: false};
+        Plotly.newPlot('strength-chart', strengthData, strengthLayout, strengthConfig);
+
+        var weeklyData = [{
+            type: 'bar',
+            x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            y: [2847, 0, 2634, 0, 3156, 2912, 0],
+            marker: { color: '#ccff00' }
+        }];
+
+        var weeklyLayout = {
+            showlegend: false,
+            margin: { t: 20, r: 20, b: 40, l: 60 },
+            paper_bgcolor: '#151922',
+            plot_bgcolor: '#151922',
+            xaxis: { 
+                showgrid: false, 
+                color: '#71717a',
+                tickfont: { size: 11 }
+            },
+            yaxis: { 
+                title: 'Volume (kg)',
+                showgrid: true, 
+                gridcolor: '#27272a',
+                color: '#71717a',
+                tickfont: { size: 11 },
+                titlefont: { size: 12 }
+            }
+        };
+
+        var weeklyConfig = {responsive: true, displayModeBar: false, displaylogo: false};
+        Plotly.newPlot('weekly-chart', weeklyData, weeklyLayout, weeklyConfig);
+
+        var muscleBalanceData = [{
+            type: 'bar',
+            x: ['Chest', 'Back', 'Shoulders', 'Legs', 'Arms', 'Core'],
+            y: [179, 195, 168, 142, 156, 163],
+            marker: { color: '#4c6ef5' }
+        }];
+
+        var muscleBalanceLayout = {
+            showlegend: false,
+            margin: { t: 20, r: 20, b: 40, l: 50 },
+            paper_bgcolor: '#0b0e14',
+            plot_bgcolor: '#0b0e14',
+            xaxis: { 
+                showgrid: false, 
+                color: '#71717a',
+                tickfont: { size: 10 }
+            },
+            yaxis: { 
+                showgrid: true, 
+                gridcolor: '#27272a',
+                color: '#71717a',
+                tickfont: { size: 10 }
+            }
+        };
+
+        var muscleBalanceConfig = {responsive: true, displayModeBar: false, displaylogo: false};
+        Plotly.newPlot('muscle-balance-chart', muscleBalanceData, muscleBalanceLayout, muscleBalanceConfig);
+
+        var volumeProgressionData = [{
+            type: 'scatter',
+            mode: 'lines',
+            x: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            y: [8500, 9200, 9800, 10400, 11100, 11600, 12300, 12900, 13200, 13500, 13689, 14000],
+            line: { color: '#ccff00', width: 3 },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(204, 255, 0, 0.1)'
+        }];
+
+        var volumeProgressionLayout = {
+            showlegend: false,
+            margin: { t: 20, r: 20, b: 40, l: 60 },
+            paper_bgcolor: '#0b0e14',
+            plot_bgcolor: '#0b0e14',
+            xaxis: { 
+                showgrid: false, 
+                color: '#71717a',
+                tickfont: { size: 10 }
+            },
+            yaxis: { 
+                title: 'Volume (kg)',
+                showgrid: true, 
+                gridcolor: '#27272a',
+                color: '#71717a',
+                tickfont: { size: 10 },
+                titlefont: { size: 11 }
+            }
+        };
+
+        var volumeProgressionConfig = {responsive: true, displayModeBar: false, displaylogo: false};
+        Plotly.newPlot('volume-progression-chart', volumeProgressionData, volumeProgressionLayout, volumeProgressionConfig);
+
+    } catch(e) {
+        console.error('Chart rendering error:', e);
+    }
+});
+</script>
+
+</body>
+</html>
