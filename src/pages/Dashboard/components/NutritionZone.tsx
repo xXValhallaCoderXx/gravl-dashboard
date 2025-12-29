@@ -1,96 +1,80 @@
 import { NutritionStats } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
-import { Flame, Beef, Wheat, Droplet } from "lucide-react";
+import { Plus } from "lucide-react";
 
 interface NutritionZoneProps {
     nutrition: NutritionStats;
 }
 
 export function NutritionZone({ nutrition }: NutritionZoneProps) {
-    // Helper to calculate percentage width safely
-    const getWidth = (current: number, target: number) => Math.min(Math.max((current / target) * 100, 0), 100);
+    // Calculate percentages for progress bars
+    // Assuming targets: Protein 200g, Carbs 300g, Fats 70g for the demo visuals
+    const proteinTarget = 200;
+    const carbsTarget = 300;
+    const fatsTarget = 70;
 
-    // Determining colors based on delta/status - simplified logic for UI
-    const getDeltaColor = (delta: number) => delta < 0 ? "text-green-400 bg-green-400/10" : "text-orange-400 bg-orange-400/10";
+    const proteinPct = Math.min((nutrition.protein.current / proteinTarget) * 100, 100);
+    const carbsPct = Math.min((nutrition.carbs.current / carbsTarget) * 100, 100);
+    const fatsPct = Math.min((nutrition.fats.current / fatsTarget) * 100, 100);
 
     return (
-        <section id="nutrition-overview" className="px-8 pb-8 w-full">
-            <div className="bg-card-bg rounded-2xl p-6 border border-slate-custom">
+        <section id="nutrition-section" className="px-8 mb-6 w-full">
+            <div className="bg-card-bg rounded-2xl border border-slate-custom p-6">
                 <div className="flex items-center justify-between mb-6">
-                    <div>
-                        <h2 className="text-xl font-bold uppercase tracking-wide text-white">NUTRITION OVERVIEW</h2>
-                        <p className="text-sm text-slate-custom mt-1">Daily macronutrient tracking</p>
-                    </div>
-                    <Button className="px-6 py-2.5 rounded-xl bg-zinc-900 text-sm font-bold hover:bg-zinc-800 transition-all text-white">
-                        LOG MEAL
+                    <h3 className="text-xl font-bold text-white">Nutrition Tracker</h3>
+                    <Button size="sm" className="bg-volt text-deep-focus font-bold hover:bg-volt/90">
+                        <Plus className="w-4 h-4 mr-1" /> Log Meal
                     </Button>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {/* Calories */}
-                    <div className="p-6 rounded-xl bg-zinc-900 border border-transparent hover:border-zinc-700 transition-colors">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-red-500 bg-opacity-20 flex items-center justify-center">
-                                <Flame className="text-red-500 w-6 h-6" />
-                            </div>
-                            <span className={`text-xs font-bold px-3 py-1 rounded-full ${getDeltaColor(nutrition.calories.delta)}`}>
-                                {nutrition.calories.delta > 0 ? '+' : ''}{nutrition.calories.delta}
-                            </span>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {/* Calories Summary */}
+                    <div className="lg:col-span-1 bg-deep-navy rounded-xl p-5 border border-slate-custom flex flex-col justify-center items-center relative overflow-hidden">
+                        <div className="relative z-10 text-center">
+                            <p className="text-slate-custom text-sm font-semibold uppercase tracking-wider mb-1">Calories Remaining</p>
+                            <h2 className="text-4xl font-black text-white mb-2">{nutrition.calories.target - nutrition.calories.current}</h2>
+                            <p className="text-sm text-slate-400">Target: {nutrition.calories.target}</p>
                         </div>
-                        <div className="text-4xl font-black text-white mb-2">{nutrition.calories.current.toLocaleString()}</div>
-                        <div className="text-sm font-medium text-slate-custom uppercase">Calories</div>
-                        <div className="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-red-500" style={{ width: `${getWidth(nutrition.calories.current, nutrition.calories.target)}%` }}></div>
-                        </div>
+                        {/* Background progress ring simulation or simpler visual */}
+                        <div className="absolute top-0 left-0 w-2 h-full bg-volt"></div>
                     </div>
 
-                    {/* Protein */}
-                    <div className="p-6 rounded-xl bg-zinc-900 border border-transparent hover:border-zinc-700 transition-colors">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-blue-500 bg-opacity-20 flex items-center justify-center">
-                                <Beef className="text-blue-500 w-6 h-6" />
+                    {/* Macros */}
+                    <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {/* Protein */}
+                        <div className="bg-deep-navy rounded-xl p-4 border border-slate-custom">
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-white font-bold">Protein</span>
+                                <span className="text-volt font-mono text-sm">{nutrition.protein.current}g</span>
                             </div>
-                            <span className={`text-xs font-bold px-3 py-1 rounded-full ${getDeltaColor(-nutrition.protein.delta)}`}> {/* Inverted logic for protein usually positive is good? keeping simple */}
-                                {nutrition.protein.delta > 0 ? '+' : ''}{nutrition.protein.delta}g
-                            </span>
+                            <div className="w-full bg-zinc-800 rounded-full h-2 mb-2">
+                                <div className="bg-volt h-2 rounded-full" style={{ width: `${proteinPct}%` }}></div>
+                            </div>
+                            <p className="text-xs text-slate-custom text-right">{proteinTarget - nutrition.protein.current}g left</p>
                         </div>
-                        <div className="text-4xl font-black text-white mb-2">{nutrition.protein.current}g</div>
-                        <div className="text-sm font-medium text-slate-custom uppercase">Protein</div>
-                        <div className="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-blue-500" style={{ width: '104%' }}></div>
-                        </div>
-                    </div>
 
-                    {/* Carbs */}
-                    <div className="p-6 rounded-xl bg-zinc-900 border border-transparent hover:border-zinc-700 transition-colors">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-yellow-500 bg-opacity-20 flex items-center justify-center">
-                                <Wheat className="text-yellow-500 w-6 h-6" />
+                        {/* Carbs */}
+                        <div className="bg-deep-navy rounded-xl p-4 border border-slate-custom">
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-white font-bold">Carbs</span>
+                                <span className="text-blue-500 font-mono text-sm">{nutrition.carbs.current}g</span>
                             </div>
-                            <span className={`text-xs font-bold px-3 py-1 rounded-full ${getDeltaColor(nutrition.carbs.delta)}`}>
-                                {nutrition.carbs.delta > 0 ? '+' : ''}{nutrition.carbs.delta}g
-                            </span>
+                            <div className="w-full bg-zinc-800 rounded-full h-2 mb-2">
+                                <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${carbsPct}%` }}></div>
+                            </div>
+                            <p className="text-xs text-slate-custom text-right">{carbsTarget - nutrition.carbs.current}g left</p>
                         </div>
-                        <div className="text-4xl font-black text-white mb-2">{nutrition.carbs.current}g</div>
-                        <div className="text-sm font-medium text-slate-custom uppercase">Carbs</div>
-                        <div className="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-yellow-500" style={{ width: '86%' }}></div>
-                        </div>
-                    </div>
 
-                    {/* Fats */}
-                    <div className="p-6 rounded-xl bg-zinc-900 border border-transparent hover:border-zinc-700 transition-colors">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="w-12 h-12 rounded-xl bg-green-500 bg-opacity-20 flex items-center justify-center">
-                                <Droplet className="text-green-500 w-6 h-6" />
+                        {/* Fats */}
+                        <div className="bg-deep-navy rounded-xl p-4 border border-slate-custom">
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-white font-bold">Fats</span>
+                                <span className="text-yellow-500 font-mono text-sm">{nutrition.fats.current}g</span>
                             </div>
-                            <span className={`text-xs font-bold px-3 py-1 rounded-full ${getDeltaColor(nutrition.fats.delta)}`}>
-                                {nutrition.fats.delta > 0 ? '+' : ''}{nutrition.fats.delta}g
-                            </span>
-                        </div>
-                        <div className="text-4xl font-black text-white mb-2">{nutrition.fats.current}g</div>
-                        <div className="text-sm font-medium text-slate-custom uppercase">Fats</div>
-                        <div className="mt-4 h-2 bg-zinc-800 rounded-full overflow-hidden">
-                            <div className="h-full bg-green-500" style={{ width: '45%' }}></div>
+                            <div className="w-full bg-zinc-800 rounded-full h-2 mb-2">
+                                <div className="bg-yellow-500 h-2 rounded-full" style={{ width: `${fatsPct}%` }}></div>
+                            </div>
+                            <p className="text-xs text-slate-custom text-right">{fatsTarget - nutrition.fats.current}g left</p>
                         </div>
                     </div>
                 </div>

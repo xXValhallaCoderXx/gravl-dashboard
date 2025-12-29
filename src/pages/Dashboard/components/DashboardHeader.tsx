@@ -1,50 +1,54 @@
 import { Button } from "@/components/ui/button";
-import { Dumbbell, Flame, Bell } from "lucide-react";
+import { UserStats, DashboardData } from "@/types/dashboard";
+import { Bell, Search } from "lucide-react";
 
 interface DashboardHeaderProps {
-    streak: number;
-    totalWorkouts: number;
-    hoursTrained: number;
-    volumeLoad: number;
-    userAvatar: string;
+    stats: UserStats;
+    user: DashboardData['user'];
 }
 
-export function DashboardHeader({
-    streak,
-    totalWorkouts,
-    hoursTrained,
-    volumeLoad,
-    userAvatar
-}: DashboardHeaderProps) {
+export function DashboardHeader({ stats, user }: DashboardHeaderProps) {
     return (
-        <header id="header" className="bg-card-bg border-b border-slate-custom px-8 h-16 flex items-center justify-between sticky top-0 z-10 w-full">
+        <header id="header" className="h-20 bg-deep-navy border-b border-slate-custom flex items-center justify-between px-8 sticky top-0 z-10">
+            <div className="flex items-center space-x-12">
+                <div className="text-2xl font-black text-volt tracking-tighter">GRAVL</div>
+                <nav className="hidden md:flex items-center space-x-8">
+                    <Button variant="link" className="text-white font-bold text-base p-0 hover:text-volt no-underline">Dashboard</Button>
+                    <Button variant="link" className="text-slate-custom font-medium text-base p-0 hover:text-white no-underline transition-colors">Workouts</Button>
+                    <Button variant="link" className="text-slate-custom font-medium text-base p-0 hover:text-white no-underline transition-colors">Analytics</Button>
+                    <Button variant="link" className="text-slate-custom font-medium text-base p-0 hover:text-white no-underline transition-colors">Community</Button>
+                </nav>
+            </div>
+
             <div className="flex items-center space-x-6">
-                <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 rounded-lg gradient-volt flex items-center justify-center glow-volt">
-                        <Dumbbell className="text-deep-focus w-4 h-4" />
+                {/* Stats Summary - Hidden on mobile, visible on lg */}
+                <div className="hidden lg:flex items-center space-x-6 mr-6 border-r border-slate-custom pr-6">
+                    <div className="text-right">
+                        <div className="text-xs text-slate-custom font-bold uppercase">Streak</div>
+                        <div className="text-lg font-black text-white flex items-center justify-end">
+                            <span className="text-volt mr-1">🔥</span> {stats.streak}
+                        </div>
                     </div>
-                    <span className="font-bold text-lg text-white">GRAVL</span>
+                    <div className="text-right">
+                        <div className="text-xs text-slate-custom font-bold uppercase">Workouts</div>
+                        <div className="text-lg font-black text-white">{stats.totalWorkouts}</div>
+                    </div>
                 </div>
-                <div className="flex items-center space-x-2 bg-zinc-900 rounded-lg px-3 py-1.5">
-                    <Flame className="text-volt w-5 h-5 glow-volt" fill="currentColor" />
-                    <span className="text-volt font-black text-base">{streak} Day Streak</span>
-                </div>
-            </div>
 
-            <div className="flex items-center space-x-5 text-xs font-medium text-slate-custom">
-                <div>{totalWorkouts} Total Workouts</div>
-                <div className="w-px h-4 bg-slate-custom"></div>
-                <div>{hoursTrained}h Trained</div>
-                <div className="w-px h-4 bg-slate-custom"></div>
-                <div>{volumeLoad >= 1000 ? `${(volumeLoad / 1000).toFixed(0)}k` : volumeLoad} Vol</div>
-            </div>
-
-            <div className="flex items-center space-x-3">
-                <Button variant="ghost" className="w-8 h-8 rounded-lg bg-zinc-900 flex items-center justify-center hover:bg-zinc-800 p-0 text-slate-custom hover:text-white">
-                    <Bell className="w-4 h-4" />
+                <Button variant="ghost" size="icon" className="text-slate-custom hover:text-white">
+                    <Search className="w-5 h-5" />
                 </Button>
-                <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-volt">
-                    <img src={userAvatar} alt="User" className="w-full h-full object-cover" />
+                <Button variant="ghost" size="icon" className="text-slate-custom hover:text-white relative">
+                    <Bell className="w-5 h-5" />
+                    <span className="absolute top-2 right-2 w-2 h-2 bg-volt rounded-full"></span>
+                </Button>
+
+                <div className="w-10 h-10 rounded-full border-2 border-volt overflow-hidden cursor-pointer hover:opacity-80 transition-opacity">
+                    <img
+                        src={user.avatarUrl}
+                        alt={user.name}
+                        className="w-full h-full object-cover"
+                    />
                 </div>
             </div>
         </header>

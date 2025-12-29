@@ -66,11 +66,47 @@ export interface DashboardData {
     user: {
         name: string;
         avatarUrl: string;
+        welcomeMessage?: string;
     };
     stats: UserStats;
+    trends: {
+        workouts: { value: string; label: string; trend: number }; // trend %
+        volume: { value: string; label: string; trend: number };
+        calories: { value: string; label: string; trend: number };
+        sets: { value: string; label: string; trend: number };
+    };
     nextWorkout: UpcomingWorkout;
     recovery: MuscleRecovery[];
+    strengthScore: number; // For the gauge chart
     nutrition: NutritionStats;
     recentWorkouts: WorkoutSession[];
     personalRecords: PersonalRecord[];
+    strengthDetails: {
+        muscle: string;
+        level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Elite';
+        score: number; // 0-200
+    }[];
+    exerciseLibrary: {
+        name: string;
+        muscle: string;
+        type: 'Compound' | 'Isolation';
+        imageUrl: string;
+    }[];
+    communityPosts: {
+        user: { name: string; avatarUrl: string };
+        timeAgo: string;
+        content: string;
+        likes: number;
+        comments: number;
+        shares: number;
+    }[];
+    activeGoals: {
+        id: string;
+        title: string;
+        deadline: string;
+        progress: number;
+        status: 'IN PROGRESS' | 'COMPLETED';
+        type: 'strength' | 'consistency' | 'habit'; // Maps to icons
+    }[];
+    weeklyVolume: { name: string; value: number }[]; // For Weekly Performance chart
 }
