@@ -7,6 +7,15 @@
     --color-card-bg: #18181b;
     --color-deep-navy: #0a0b14;
 
+    /* Gravl Brand Colors */
+    --color-gravl-bg: #0B0E14;
+    --color-gravl-card: #151922;
+    --color-gravl-border: #27272A;
+    --color-gravl-lime: #CCFF00;
+    --color-gravl-blue: #4C6EF5;
+    --color-gravl-red: #FF4D4D;
+    --color-gravl-purple: #A855F7;
+
     --color-border: hsl(var(--border));
     --color-input: hsl(var(--input));
     --color-ring: hsl(var(--ring));

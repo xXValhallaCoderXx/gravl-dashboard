@@ -105,10 +105,10 @@ function Dashboard() {
     };
 
     return (
-        <div className="flex h-screen bg-deep-navy text-white overflow-hidden font-sans">
+        <div className="flex h-screen bg-gravl-bg text-white overflow-hidden font-sans">
             <DashboardSidebar />
 
-            <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-deep-navy relative">
+            <main className="flex-1 flex flex-col min-w-0 overflow-hidden bg-gravl-bg relative">
                 <DashboardHeader user={data.user} stats={data.stats} />
 
                 <div id="dashboard-content" className="flex-1 overflow-y-auto custom-scrollbar pb-8">

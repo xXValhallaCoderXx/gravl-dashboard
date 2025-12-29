@@ -17,13 +17,17 @@ module.exports = {
         },
         extend: {
             colors: {
-                // V2 Dashboard Colors
-                "deep-navy": "#0a0b14",
-                "card-bg": "#12141f",
-                "volt": "#bef202",
-                "deep-focus": "#111827",
-                "slate-custom": "#2e3346",
-
+                // GRAVL BRAND COLORS
+                gravl: {
+                    bg: "#0B0E14",       // Deep Midnight Navy (Main Background)
+                    card: "#151922",     // Dark Blue-Grey (Card Surface)
+                    border: "#27272A",   // Subtle Borders
+                    lime: "#CCFF00",     // The "Electric Volt" (Primary Action/Accents)
+                    blue: "#4C6EF5",     // Periwinkle (Strength Score)
+                    red: "#FF4D4D",      // Alerts/Fatigue
+                    purple: "#A855F7",   // Time/Duration
+                },
+                // Legacy/Compat mappings (mapping old to new roughly where applicable, or keeping standard)
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
@@ -62,6 +66,11 @@ module.exports = {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+                'xl': '16px',
+                '2xl': '24px',
+            },
+            fontFamily: {
+                sans: ['Inter', 'sans-serif'],
             },
             keyframes: {
                 "accordion-down": {

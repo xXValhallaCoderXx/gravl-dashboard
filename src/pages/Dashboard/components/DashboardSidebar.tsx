@@ -1,54 +1,46 @@
 import { Button } from "@/components/ui/button";
-import {
-    Dumbbell,
-    TrendingUp,
-    Flame,
-    Calendar,
-    Trophy,
-    Activity,
-    Users,
-    Settings
-} from "lucide-react";
+import { LayoutDashboard, Dumbbell, BarChart2, Users, Settings, LogOut, Disc } from "lucide-react";
 
 export function DashboardSidebar() {
     return (
-        <aside id="sidebar" className="w-20 bg-card-bg border-r border-slate-custom flex flex-col items-center py-6 flex-shrink-0 h-screen sticky top-0">
-            <div className="mb-12">
-                <div className="w-12 h-12 rounded-2xl gradient-volt flex items-center justify-center glow-volt">
-                    <Dumbbell className="text-deep-focus w-6 h-6" />
-                </div>
+        <aside className="w-20 lg:w-64 bg-gravl-bg border-r border-white/5 flex flex-col justify-between py-6 hidden md:flex z-20">
+            <div className="px-4">
+                {/* Mobile/Collapsed Logo placeholder if needed, though header handles logo usually. 
+                     Here we can put the "New Workout" CTA or just nav items. */}
+
+                <nav className="space-y-2 mt-4">
+                    <Button variant="ghost" className="w-full justify-start text-gravl-lime bg-gravl-lime/10 font-bold hover:bg-gravl-lime/20 hover:text-gravl-lime">
+                        <LayoutDashboard className="w-5 h-5 mr-3" />
+                        <span className="hidden lg:inline">Overview</span>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5 font-medium">
+                        <Dumbbell className="w-5 h-5 mr-3" />
+                        <span className="hidden lg:inline">Workout</span>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5 font-medium">
+                        <Disc className="w-5 h-5 mr-3" />
+                        <span className="hidden lg:inline">Exercises</span>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5 font-medium">
+                        <BarChart2 className="w-5 h-5 mr-3" />
+                        <span className="hidden lg:inline">History</span>
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5 font-medium">
+                        <Users className="w-5 h-5 mr-3" />
+                        <span className="hidden lg:inline">Community</span>
+                    </Button>
+                </nav>
             </div>
-            <nav className="flex-1 flex flex-col items-center space-y-6">
-                <Button variant="ghost" className="w-12 h-12 rounded-xl bg-zinc-800 text-volt hover:bg-zinc-700 p-0">
-                    <TrendingUp className="w-6 h-6" />
+
+            <div className="px-4 space-y-2">
+                <Button variant="ghost" className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/5 font-medium">
+                    <Settings className="w-5 h-5 mr-3" />
+                    <span className="hidden lg:inline">Settings</span>
                 </Button>
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Flame className="w-6 h-6" />
+                <Button variant="ghost" className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-500/10 font-medium">
+                    <LogOut className="w-5 h-5 mr-3" />
+                    <span className="hidden lg:inline">Sign Out</span>
                 </Button>
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Calendar className="w-6 h-6" />
-                </Button>
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Trophy className="w-6 h-6" />
-                </Button>
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Activity className="w-6 h-6" />
-                </Button>
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Users className="w-6 h-6" />
-                </Button>
-            </nav>
-            <div className="mt-auto space-y-4 flex flex-col items-center">
-                <Button variant="ghost" className="w-12 h-12 rounded-xl text-slate-custom hover:bg-zinc-800 p-0 hover:text-white">
-                    <Settings className="w-6 h-6" />
-                </Button>
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-volt">
-                    <img
-                        src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg"
-                        alt="User"
-                        className="w-full h-full object-cover"
-                    />
-                </div>
             </div>
         </aside>
     );
