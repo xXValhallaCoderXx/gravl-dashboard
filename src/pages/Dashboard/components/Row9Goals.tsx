@@ -15,7 +15,7 @@ export function Row9Goals({ goals }: Row9GoalsProps) {
 
     return (
         <section id="goals-section" className="px-8 mb-8 w-full">
-            <div className="bg-card-bg rounded-2xl border border-slate-custom p-6">
+            <div className="bg-gravl-card rounded-2xl border border-gravl-border p-6">
                 <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-bold text-white flex items-center">
                         <Target className="w-5 h-5 text-red-500 mr-2" /> Active Goals
@@ -27,17 +27,17 @@ export function Row9Goals({ goals }: Row9GoalsProps) {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {goals.map((goal, index) => (
-                        <div key={index} className="bg-deep-navy rounded-xl p-5 border border-slate-custom relative">
+                        <div key={index} className="bg-gravl-bg/50 rounded-xl p-5 border border-gravl-border relative">
                             <div className="flex justify-between items-start mb-4">
                                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${getStatusColor(goal.status)}`}>
                                     {goal.status}
                                 </span>
-                                <span className="text-slate-custom text-xs">{goal.deadline}</span>
+                                <span className="text-gray-400 text-xs">{goal.deadline}</span>
                             </div>
 
                             <h4 className="font-bold text-lg text-white mb-2">{goal.title}</h4>
 
-                            <div className="flex items-center justify-between text-xs text-slate-custom mb-2">
+                            <div className="flex items-center justify-between text-xs text-gray-400 mb-2">
                                 <span>Progress</span>
                                 <span className="text-white font-mono">{goal.progress}%</span>
                             </div>

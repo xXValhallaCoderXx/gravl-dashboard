@@ -32,29 +32,29 @@ export function Row3DeepDive({ recentWorkouts, strengthDetails }: Row3DeepDivePr
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
                 {/* Recent Workouts Card */}
-                <div className="bg-card-bg rounded-2xl border border-slate-custom p-6">
+                <div className="bg-gravl-card rounded-2xl border border-gravl-border p-6">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-xl font-bold text-white">Recent Workouts</h3>
                         <Button variant="link" className="text-volt font-semibold hover:text-white p-0">View All</Button>
                     </div>
                     <div className="space-y-4">
                         {recentWorkouts.map((workout) => (
-                            <div key={workout.id} className="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-slate-custom hover:border-slate-500 transition cursor-pointer group">
+                            <div key={workout.id} className="flex items-center justify-between p-4 bg-gravl-bg/50 rounded-xl border border-gravl-border hover:border-slate-500 transition cursor-pointer group">
                                 <div className="flex items-center flex-1">
                                     <div className={`w-12 h-12 rounded-xl flex items-center justify-center mr-4 ${getColor(workout.title)}`}>
                                         {getIcon(workout.title)}
                                     </div>
                                     <div>
                                         <p className="font-semibold text-white group-hover:text-volt transition">{workout.title}</p>
-                                        <p className="text-slate-custom text-sm">{workout.date}</p>
+                                        <p className="text-gray-400 text-sm">{workout.date}</p>
                                     </div>
                                 </div>
                                 <div className="text-right mr-4">
                                     <p className="font-mono font-semibold text-white">{workout.volumeLoad.toLocaleString()} kg</p>
-                                    <p className="text-slate-custom text-xs">Volume</p>
+                                    <p className="text-gray-400 text-xs">Volume</p>
                                 </div>
-                                <div className="w-8 h-8 rounded-full bg-card-bg border border-slate-custom flex items-center justify-center group-hover:border-volt transition">
-                                    <ArrowRight className="w-4 h-4 text-slate-custom group-hover:text-volt" />
+                                <div className="w-8 h-8 rounded-full bg-gravl-card border border-gravl-border flex items-center justify-center group-hover:border-volt transition">
+                                    <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-volt" />
                                 </div>
                             </div>
                         ))}
@@ -62,14 +62,14 @@ export function Row3DeepDive({ recentWorkouts, strengthDetails }: Row3DeepDivePr
                 </div>
 
                 {/* Strength Details Card */}
-                <div className="bg-card-bg rounded-2xl border border-slate-custom p-6">
+                <div className="bg-gravl-card rounded-2xl border border-gravl-border p-6">
                     <div className="flex items-center justify-between mb-6">
                         <h3 className="text-xl font-bold text-white">Strength Details</h3>
                         <Button variant="link" className="text-volt font-semibold hover:text-white p-0">Full Report</Button>
                     </div>
                     <div className="space-y-4">
                         {strengthDetails.map((detail, index) => (
-                            <div key={index} className="flex items-center justify-between p-4 bg-deep-navy rounded-xl border border-slate-custom">
+                            <div key={index} className="flex items-center justify-between p-4 bg-gravl-bg/50 rounded-xl border border-gravl-border">
                                 <div className="flex items-center flex-1">
                                     {/* SVG Gauge */}
                                     <div className="relative w-16 h-16 mr-4">
@@ -91,10 +91,10 @@ export function Row3DeepDive({ recentWorkouts, strengthDetails }: Row3DeepDivePr
                                     </div>
                                     <div>
                                         <p className="font-semibold text-lg text-white">{detail.muscle}</p>
-                                        <p className="text-slate-custom text-sm">{detail.level}</p>
+                                        <p className="text-gray-400 text-sm">{detail.level}</p>
                                     </div>
                                 </div>
-                                <ChevronRight className="text-slate-custom w-5 h-5" />
+                                <ChevronRight className="text-gray-400 w-5 h-5" />
                             </div>
                         ))}
                     </div>

@@ -9,8 +9,8 @@
 
     /* Gravl Brand Colors */
     --color-gravl-bg: #0B0E14;
-    --color-gravl-card: #151922;
-    --color-gravl-border: #27272A;
+    --color-gravl-card: #1A1D26;
+    --color-gravl-border: rgba(76, 110, 245, 0.1);
     --color-gravl-lime: #CCFF00;
     --color-gravl-blue: #4C6EF5;
     --color-gravl-red: #FF4D4D;

@@ -1,6 +1,6 @@
 import { UpcomingWorkout, MuscleRecovery } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, SkipForward, Clock, Share2 } from "lucide-react";
+import { RotateCcw, SkipForward, Clock, Share2, Eye } from "lucide-react";
 import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis } from "recharts";
 
 interface ActionZoneProps {
@@ -33,7 +33,7 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
 
                 {/* Next Workout Card */}
-                <div id="next-workout-card" className="xl:col-span-7 bg-gravl-card rounded-2xl border border-white/5 relative overflow-hidden flex flex-col p-0">
+                <div id="next-workout-card" className="xl:col-span-7 bg-gravl-card rounded-2xl border border-gravl-border relative overflow-hidden flex flex-col p-0">
                     {/* Top Tab Label */}
                     <div className="absolute top-0 left-0 bg-gravl-lime text-black font-bold rounded-br-xl inline-block px-4 py-1 text-sm uppercase tracking-wide z-10">
                         NEXT WORKOUT - PUSH
@@ -84,7 +84,8 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                         </div>
 
                         <Button className="w-full mt-6 h-12 rounded-xl bg-gravl-lime text-black font-bold hover:bg-gravl-lime/90 text-base shadow-lg shadow-lime-900/20">
-                            START WORKOUT
+                            <Eye className="w-5 h-5 mr-2" />
+                            VIEW WORKOUT
                         </Button>
                     </div>
                 </div>
@@ -93,7 +94,7 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                 <div id="vitals-section" className="xl:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-6">
 
                     {/* Readiness Card */}
-                    <div id="recovery-card" className="bg-gravl-card rounded-2xl border border-white/5 p-6 flex flex-col items-center justify-center relative">
+                    <div id="recovery-card" className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative">
                         <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400">Readiness</div>
 
                         <div className="w-40 h-40 relative flex items-center justify-center mt-4">
@@ -115,7 +116,7 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                     </div>
 
                     {/* Strength Score Card */}
-                    <div id="strength-score-card" className="bg-gravl-card rounded-2xl border border-white/5 p-6 flex flex-col items-center justify-center relative">
+                    <div id="strength-score-card" className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative">
                         <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400">Strength Score</div>
 
                         <div className="w-40 h-40 relative flex items-center justify-center mt-4">
