@@ -1,4 +1,4 @@
-import { FeatureItem } from "../molecules/FeatureItem";
+import { FeatureItem } from "@/components/molecules/FeatureItem";
 import { ChartLine, Flame, Trophy } from "lucide-react";
 
 export function FeaturesSection() {

@@ -1,30 +1,90 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
+import { DashboardLayout } from "@/pages/Dashboard/components/DashboardLayout";
+import { ActionZone } from "@/pages/Dashboard/components/ActionZone";
+import { AnalysisZone } from "@/pages/Dashboard/components/AnalysisZone";
+import { HistoryZone } from "@/pages/Dashboard/components/HistoryZone";
+import { NutritionZone } from "@/pages/Dashboard/components/NutritionZone";
+import { DashboardData } from "@/types/dashboard";
 
-export const Route = createFileRoute('/dashboard')({
+export const Route = createFileRoute("/dashboard")({
     component: Dashboard,
-})
+});
 
 function Dashboard() {
+    // Mock Data simulating RTK Query response
+    const data: DashboardData = {
+        user: {
+            name: "Nate", // Assuming context
+            avatarUrl: "https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg",
+        },
+        stats: {
+            streak: 12,
+            totalWorkouts: 53,
+            hoursTrained: 36,
+            volumeLoad: 335000,
+        },
+        nextWorkout: {
+            id: "wk-1",
+            title: "Pull Day A",
+            subtitle: "Back & Biceps • Last performed 4 days ago",
+            tags: {
+                exercises: 8,
+                sets: 24,
+                intensity: "High",
+            },
+            durationParam: 60,
+        },
+        recovery: [
+            { muscle: "BACK", percentage: 100, status: "ready" },
+            { muscle: "BICEPS", percentage: 95, status: "ready" },
+            { muscle: "CHEST", percentage: 42, status: "fatigued" },
+            { muscle: "TRICEPS", percentage: 68, status: "recovering" },
+        ],
+        nutrition: {
+            calories: { current: 2847, target: 3000, delta: -125 },
+            protein: { current: 187, delta: 12 },
+            carbs: { current: 216, delta: -34 },
+            fats: { current: 65, delta: 5 }, // derived from logic
+        },
+        recentWorkouts: [
+            {
+                id: "h1",
+                title: "Push Day - Upper Body Power",
+                date: "22 DEC",
+                duration: "1h 23m",
+                volumeLoad: 87400,
+                status: "completed",
+            },
+            {
+                id: "h2",
+                title: "Leg Day - Hypertrophy Focus",
+                date: "21 DEC",
+                duration: "1h 45m",
+                volumeLoad: 102100,
+                status: "completed",
+            },
+            {
+                id: "h3",
+                title: "Pull Day - Back & Biceps",
+                date: "20 DEC",
+                duration: "1h 35m",
+                volumeLoad: 94800,
+                status: "completed",
+            },
+        ],
+        personalRecords: [
+            { exercise: "DEADLIFT", weight: 180, unit: "KG", date: "Dec 15, 2024" },
+            { exercise: "SQUAT", weight: 160, unit: "KG", date: "Dec 10, 2024" },
+            { exercise: "BENCH PRESS", weight: 120, unit: "KG", date: "Dec 8, 2024" },
+        ],
+    };
+
     return (
-        <div className="p-8">
-            <h1 className="text-3xl font-bold text-gray-800 mb-6">Dashboard</h1>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-                    <h2 className="text-gray-500 font-medium">Total Revenue</h2>
-                    <p className="text-3xl font-bold mt-2">$45,231.89</p>
-                    <span className="text-green-500 text-sm font-medium">+20.1% from last month</span>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-                    <h2 className="text-gray-500 font-medium">Subscriptions</h2>
-                    <p className="text-3xl font-bold mt-2">+2350</p>
-                    <span className="text-green-500 text-sm font-medium">+180.1% from last month</span>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow border border-gray-200">
-                    <h2 className="text-gray-500 font-medium">Active Now</h2>
-                    <p className="text-3xl font-bold mt-2">+573</p>
-                    <span className="text-blue-500 text-sm font-medium">+201 since last hour</span>
-                </div>
-            </div>
-        </div>
-    )
+        <DashboardLayout data={data}>
+            <ActionZone nextWorkout={data.nextWorkout} recovery={data.recovery} />
+            <AnalysisZone personalRecords={data.personalRecords} />
+            <HistoryZone history={data.recentWorkouts} />
+            <NutritionZone nutrition={data.nutrition} />
+        </DashboardLayout>
+    );
 }
