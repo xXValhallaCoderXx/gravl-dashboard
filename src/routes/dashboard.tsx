@@ -3,6 +3,10 @@ import { DashboardLayout } from "@/pages/Dashboard/components/DashboardLayout";
 import { ActionZone } from "@/pages/Dashboard/components/ActionZone";
 import { AnalysisZone } from "@/pages/Dashboard/components/AnalysisZone";
 import { HistoryZone } from "@/pages/Dashboard/components/HistoryZone";
+import { DataStoryZone } from "@/pages/Dashboard/components/DataStoryZone";
+import { RecentActivityTable } from "@/pages/Dashboard/components/RecentActivityTable";
+import { StrengthProgressionZone } from "@/pages/Dashboard/components/StrengthProgressionZone";
+import { PerformanceMetricsZone } from "@/pages/Dashboard/components/PerformanceMetricsZone";
 import { NutritionZone } from "@/pages/Dashboard/components/NutritionZone";
 import { DashboardData } from "@/types/dashboard";
 
@@ -81,9 +85,28 @@ function Dashboard() {
 
     return (
         <DashboardLayout data={data}>
+            {/* Action Zone - Next Workout & Recovery */}
             <ActionZone nextWorkout={data.nextWorkout} recovery={data.recovery} />
+
+            {/* Analysis Zone - Muscle Focus & PRs */}
             <AnalysisZone personalRecords={data.personalRecords} />
+
+            {/* History Zone - Recent History & Badges */}
             <HistoryZone history={data.recentWorkouts} />
+
+            {/* Data Story - Volume & Split Charts */}
+            <DataStoryZone />
+
+            {/* Recent Activity - Detailed Table */}
+            <RecentActivityTable activities={data.recentWorkouts} />
+
+            {/* Strength Progression - Strength & Duration Charts */}
+            <StrengthProgressionZone />
+
+            {/* Performance Metrics - Heart Rate & Recovery Detail */}
+            <PerformanceMetricsZone recovery={data.recovery} />
+
+            {/* Nutrition Overview */}
             <NutritionZone nutrition={data.nutrition} />
         </DashboardLayout>
     );
