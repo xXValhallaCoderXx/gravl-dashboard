@@ -1,17 +1,27 @@
 import { PersonalRecord } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
 import { Dumbbell, Trophy, Weight } from "lucide-react";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from "recharts";
 
 interface AnalysisZoneProps {
     personalRecords: PersonalRecord[];
 }
+
+const mockMuscleData = [
+    { subject: 'Back', A: 120, fullMark: 150 },
+    { subject: 'Chest', A: 98, fullMark: 150 },
+    { subject: 'Legs', A: 86, fullMark: 150 },
+    { subject: 'Arms', A: 99, fullMark: 150 },
+    { subject: 'Shoulders', A: 85, fullMark: 150 },
+    { subject: 'Core', A: 65, fullMark: 150 },
+];
 
 export function AnalysisZone({ personalRecords }: AnalysisZoneProps) {
     return (
         <section id="analysis-zone" className="px-8 pb-6 w-full">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-5">
                 {/* Muscle Focus Chart */}
-                <div className="col-span-3 bg-card-bg rounded-2xl p-5 border border-slate-custom">
+                <div className="col-span-3 bg-card-bg rounded-2xl p-5 border border-slate-custom flex flex-col">
                     <div className="flex items-center justify-between mb-4">
                         <div>
                             <h3 className="text-base font-bold uppercase tracking-wide text-white">MUSCLE FOCUS</h3>
@@ -26,9 +36,23 @@ export function AnalysisZone({ personalRecords }: AnalysisZoneProps) {
                             </Button>
                         </div>
                     </div>
-                    {/* Placeholder for Chart */}
-                    <div className="h-60 w-full bg-zinc-900/50 rounded-xl flex items-center justify-center border border-zinc-800 border-dashed">
-                        <span className="text-slate-custom text-sm font-medium">Muscle Focus Chart Area</span>
+                    {/* Radar Chart */}
+                    <div className="h-60 w-full flex items-center justify-center">
+                        <ResponsiveContainer width="100%" height="100%">
+                            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={mockMuscleData}>
+                                <PolarGrid stroke="#3f3f46" strokeOpacity={0.5} />
+                                <PolarAngleAxis dataKey="subject" tick={{ fill: '#a1a1aa', fontSize: 10, fontWeight: 600 }} />
+                                <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
+                                <Radar
+                                    name="Focus"
+                                    dataKey="A"
+                                    stroke="#bef202"
+                                    strokeWidth={2}
+                                    fill="#bef202"
+                                    fillOpacity={0.3}
+                                />
+                            </RadarChart>
+                        </ResponsiveContainer>
                     </div>
                 </div>
 
