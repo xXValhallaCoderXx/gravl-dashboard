@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FeaturesSection } from "@/components/organisms/FeaturesSection";
-import { LoginFooter } from "@/components/organisms/LoginFooter";
-import { LoginForm } from "@/components/organisms/LoginForm";
+import { FeaturesSection } from "@/pages/Login/components/FeaturesSection";
+import { LoginFooter } from "@/pages/Login/components/LoginFooter";
+import { LoginForm } from "@/pages/Login/components/LoginForm";
 import { Logo } from "@/components/atoms/Logo";
 import { TestimonialCard } from "@/components/molecules/TestimonialCard";
 
