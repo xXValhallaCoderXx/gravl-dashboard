@@ -13,7 +13,7 @@ function Login() {
     return (
         <div
             id="login-container"
-            className="min-h-screen flex items-center justify-center bg-deep-focus bg-pattern px-4 py-8"
+            className="min-h-screen flex items-center justify-center bg-gravl-bg bg-pattern px-4 py-8"
         >
             <div className="w-full max-w-md animate-in fade-in zoom-in duration-500">
                 <div className="flex justify-center">
