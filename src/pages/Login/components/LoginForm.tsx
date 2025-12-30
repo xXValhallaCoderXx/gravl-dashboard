@@ -6,8 +6,16 @@ import { Eye, Lock, Mail } from "lucide-react";
 import { InputWithIcon } from "@/components/molecules/InputWithIcon";
 import { Title } from "@/components/atoms/Title";
 import { Text } from "@/components/atoms/Text";
+import { useNavigate } from "@tanstack/react-router";
 
 export function LoginForm() {
+    const navigate = useNavigate();
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        navigate({ to: "/dashboard" });
+    };
+
     return (
         <div id="login-card" className="bg-gravl-card rounded-3xl p-8 border border-gravl-border">
             <div className="text-center mb-8">
@@ -17,7 +25,7 @@ export function LoginForm() {
                 <Text variant="body" color="muted">Sign in to track your fitness journey</Text>
             </div>
 
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleLogin}>
                 <InputWithIcon
                     id="email"
                     label="Email Address"
