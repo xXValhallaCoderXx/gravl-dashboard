@@ -1,20 +1,22 @@
+import { Text } from "@/components/atoms/Text";
+
 export function LoginFooter() {
     return (
         <footer id="login-footer" className="mt-8 text-center">
-            <div className="flex items-center justify-center space-x-6 text-xs text-gray-400 mb-4">
+            <div className="flex items-center justify-center space-x-6 mb-4">
                 <a href="#" className="hover:text-gravl-lime transition-colors">
-                    Privacy Policy
+                    <Text variant="small" color="muted">Privacy Policy</Text>
                 </a>
-                <span>•</span>
+                <Text variant="small" color="muted">•</Text>
                 <a href="#" className="hover:text-gravl-lime transition-colors">
-                    Terms of Service
+                    <Text variant="small" color="muted">Terms of Service</Text>
                 </a>
-                <span>•</span>
+                <Text variant="small" color="muted">•</Text>
                 <a href="#" className="hover:text-gravl-lime transition-colors">
-                    Support
+                    <Text variant="small" color="muted">Support</Text>
                 </a>
             </div>
-            <p className="text-xs text-gray-500">© 2024 Gravl. All rights reserved.</p>
+            <Text variant="small" color="muted">© 2024 Gravl. All rights reserved.</Text>
         </footer>
     );
 }

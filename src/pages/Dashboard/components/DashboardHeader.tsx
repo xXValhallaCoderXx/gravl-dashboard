@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { UserStats, DashboardData } from "@/types/dashboard";
 import { Bell, Search } from "lucide-react";
+import { Title } from "@/components/atoms/Title";
+import { Text } from "@/components/atoms/Text";
 
 interface DashboardHeaderProps {
     stats: UserStats;
@@ -11,21 +13,22 @@ export function DashboardHeader({ stats, user }: DashboardHeaderProps) {
     return (
         <header id="header" className="h-20 bg-gravl-bg border-b border-white/5 flex items-center justify-between px-8 sticky top-0 z-10">
             <div className="flex items-center space-x-12">
-                <div className="text-2xl font-black text-gravl-lime tracking-tighter">GRAVL</div>
+                <Title variant="h2" color="lime">GRAVL</Title>
             </div>
 
             <div className="flex items-center space-x-6">
                 {/* Stats Summary - Hidden on mobile, visible on lg */}
                 <div className="hidden lg:flex items-center space-x-6 mr-6 border-r border-white/5 pr-6">
                     <div className="text-right">
-                        <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Streak</div>
-                        <div className="text-lg font-black text-white flex items-center justify-end">
-                            <span className="text-gravl-lime mr-1">🔥</span> {stats.streak}
+                        <Text variant="label" color="muted">Streak</Text>
+                        <div className="flex items-center justify-end">
+                            <span className="text-gravl-lime mr-1">🔥</span>
+                            <Text variant="lead" className="font-black">{stats.streak}</Text>
                         </div>
                     </div>
                     <div className="text-right">
-                        <div className="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Workouts</div>
-                        <div className="text-lg font-black text-white">{stats.totalWorkouts}</div>
+                        <Text variant="label" color="muted">Workouts</Text>
+                        <Text variant="lead" className="font-black">{stats.totalWorkouts}</Text>
                     </div>
                 </div>
 

@@ -1,9 +1,9 @@
 
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import React from "react";
+import { Text } from "@/components/atoms/Text";
 
 interface InputWithIconProps extends React.InputHTMLAttributes<HTMLInputElement> {
     id: string;
@@ -15,9 +15,9 @@ interface InputWithIconProps extends React.InputHTMLAttributes<HTMLInputElement>
 export function InputWithIcon({ id, label, icon: Icon, rightElement, className, ...props }: InputWithIconProps) {
     return (
         <div className="space-y-2">
-            <Label htmlFor={id} className="block text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">
-                {label}
-            </Label>
+            <label htmlFor={id} className="block mb-2">
+                <Text variant="label" color="muted">{label}</Text>
+            </label>
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                     <Icon className="text-gray-400 w-4 h-4" />

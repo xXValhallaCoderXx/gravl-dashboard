@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { Text } from "@/components/atoms/Text";
 
 interface TestimonialCardProps {
     avatarUrl: string;
@@ -20,10 +21,10 @@ export function TestimonialCard({ avatarUrl, name, role, quote }: TestimonialCar
                             <Star key={i} className="text-gravl-lime w-3 h-3 fill-current" />
                         ))}
                     </div>
-                    <p className="text-xs text-foreground mb-2">"{quote}"</p>
-                    <div className="text-xs">
-                        <span className="font-bold text-foreground">{name}</span>
-                        <span className="text-muted-foreground"> • {role}</span>
+                    <Text variant="small" className="mb-2">"{quote}"</Text>
+                    <div className="flex items-center gap-1">
+                        <Text variant="small" className="font-bold">{name}</Text>
+                        <Text variant="small" color="muted">• {role}</Text>
                     </div>
                 </div>
             </div>
