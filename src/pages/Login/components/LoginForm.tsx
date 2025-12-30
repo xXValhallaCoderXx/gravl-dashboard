@@ -59,7 +59,9 @@ export function LoginForm() {
 
                 <Button
                     type="submit"
-                    className="w-full py-6 rounded-xl bg-gravl-lime text-gravl-bg font-black text-sm uppercase tracking-wide shadow-[0_0_20px_rgba(190,242,2,0.3)] hover:opacity-90 transition-all cursor-pointer"
+                    variant="gravl-primary"
+                    size="xl"
+                    className="w-full"
                 >
                     Sign In
                 </Button>

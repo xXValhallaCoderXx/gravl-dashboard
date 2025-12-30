@@ -83,7 +83,11 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                             </div>
                         </div>
 
-                        <Button className="w-full mt-6 h-12 rounded-xl bg-gravl-lime text-black font-bold hover:bg-gravl-lime/90 text-base shadow-lg shadow-lime-900/20">
+                        <Button
+                            variant="gravl-primary"
+                            size="xl"
+                            className="w-full mt-6"
+                        >
                             <Eye className="w-5 h-5 mr-2" />
                             VIEW WORKOUT
                         </Button>
