@@ -86,6 +86,7 @@ export interface DashboardData {
         level: 'Beginner' | 'Intermediate' | 'Advanced' | 'Elite';
         score: number; // 0-200
     }[];
+    strengthHistory: { date: string; value: number }[];
     exerciseLibrary: {
         name: string;
         muscle: string;

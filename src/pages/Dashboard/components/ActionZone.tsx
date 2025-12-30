@@ -1,12 +1,18 @@
 import { UpcomingWorkout, MuscleRecovery } from "@/types/dashboard";
 import { Button } from "@/components/ui/button";
-import { RotateCcw, SkipForward, Clock, Share2, Eye } from "lucide-react";
+import { RotateCcw, SkipForward, Clock, Share2, Eye, Maximize2 } from "lucide-react";
 import { RadialBarChart, RadialBar, ResponsiveContainer, PolarAngleAxis } from "recharts";
+import { useState } from "react";
+import { RecoveryDetailModal } from "@/components/organisms/RecoveryDetailModal";
+import { StrengthDetailModal } from "@/components/organisms/StrengthDetailModal";
+import { cn } from "@/lib/utils";
 
 interface ActionZoneProps {
     nextWorkout: UpcomingWorkout;
     recovery: MuscleRecovery[];
     strengthScore: number;
+    strengthHistory: { date: string; value: number }[];
+    strengthDetails: { muscle: string; level: string; score: number }[];
 }
 
 // Mocking the image strip
@@ -18,7 +24,10 @@ const EXERCISE_IMAGES = [
     "https://storage.googleapis.com/uxpilot-auth.appspot.com/2b2edf9b10-eca8e4d74f029f200cba.png"
 ];
 
-export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneProps) {
+export function ActionZone({ nextWorkout, recovery, strengthScore, strengthHistory, strengthDetails }: ActionZoneProps) {
+    const [isRecoveryOpen, setIsRecoveryOpen] = useState(false);
+    const [isStrengthOpen, setIsStrengthOpen] = useState(false);
+
     // Strength Score Data
     const strengthData = [{ name: 'Score', value: strengthScore, fill: '#4C6EF5' }]; // Gravl Blue
 
@@ -97,9 +106,16 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                 {/* Vitals Section */}
                 <div id="vitals-section" className="xl:col-span-5 grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                    {/* Readiness Card */}
-                    <div id="recovery-card" className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative">
-                        <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400">Readiness</div>
+                    {/* Muscle Recovery Card */}
+                    <div
+                        id="recovery-card"
+                        className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative hover:scale-[1.02] hover:border-gravl-lime/50 transition-all cursor-pointer group"
+                        onClick={() => setIsRecoveryOpen(true)}
+                    >
+                        <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Muscle Recovery</div>
+                        <div className="absolute top-4 right-4">
+                            <Maximize2 className="w-4 h-4 text-gray-600 group-hover:text-gravl-lime opacity-0 group-hover:opacity-100 transition-all" />
+                        </div>
 
                         <div className="w-40 h-40 relative flex items-center justify-center mt-4">
                             <ResponsiveContainer width="100%" height="100%">
@@ -116,12 +132,19 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                                 <span className="text-4xl font-black text-white">{overallReadiness}%</span>
                             </div>
                         </div>
-                        <p className="text-gray-500 text-xs mt-2 font-medium">Prioritize recovery today</p>
+                        <p className="text-gray-500 text-xs mt-2 font-medium group-hover:text-gray-400 transition-colors">Prioritize recovery today</p>
                     </div>
 
                     {/* Strength Score Card */}
-                    <div id="strength-score-card" className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative">
-                        <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400">Strength Score</div>
+                    <div
+                        id="strength-score-card"
+                        className="bg-gravl-card rounded-2xl border border-gravl-border p-6 flex flex-col items-center justify-center relative hover:scale-[1.02] hover:border-gravl-blue/50 transition-all cursor-pointer group"
+                        onClick={() => setIsStrengthOpen(true)}
+                    >
+                        <div className="absolute top-4 left-4 text-sm font-semibold text-gray-400 group-hover:text-white transition-colors">Strength Score</div>
+                        <div className="absolute top-4 right-4">
+                            <Maximize2 className="w-4 h-4 text-gray-600 group-hover:text-gravl-blue opacity-0 group-hover:opacity-100 transition-all" />
+                        </div>
 
                         <div className="w-40 h-40 relative flex items-center justify-center mt-4">
                             <ResponsiveContainer width="100%" height="100%">
@@ -139,11 +162,14 @@ export function ActionZone({ nextWorkout, recovery, strengthScore }: ActionZoneP
                                 <span className="text-4xl font-black text-white">{strengthScore}</span>
                             </div>
                         </div>
-                        <div className="mt-2 bg-gravl-blue/10 text-gravl-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide">
+                        <div className="mt-2 bg-gravl-blue/10 text-gravl-blue px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide group-hover:bg-gravl-blue group-hover:text-white transition-colors">
                             Elite
                         </div>
                     </div>
                 </div>
+
+                <RecoveryDetailModal open={isRecoveryOpen} onOpenChange={setIsRecoveryOpen} recoveryData={recovery} />
+                <StrengthDetailModal open={isStrengthOpen} onOpenChange={setIsStrengthOpen} strengthScore={strengthScore} history={strengthHistory} breakdown={strengthDetails} />
             </div>
         </section>
     );
